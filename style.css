@@ -88,7 +88,7 @@ body {
   scroll-margin-top: 70px;
 }
 
-/* 2. PORTFOLIO SECTION (Desktop Wide layout for 5 columns) */
+/* 2. PORTFOLIO SECTION (Desktop: 1700px wide, 5 columns) */
 #portfolio {
   width: 100%;
   max-width: 1700px;
@@ -215,7 +215,7 @@ h1 {
   font-size: 1.1rem;
 }
 
-/* Portfolio Gallery (Desktop: 5 columns in a single row) */
+/* Portfolio Gallery (Desktop: 5 columns) */
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -340,10 +340,13 @@ footer {
   border-top: 1px solid var(--border-color);
 }
 
-/* MOBILE RESPONSIVE FIX (Screens smaller than 768px) */
+/* RESPONSIVE MEDIA QUERY FOR PHONES (Max-width: 768px) */
 @media (max-width: 768px) {
   .portfolio-grid {
-    grid-template-columns: 1fr; /* Forces 1 large image per row on phones */
-    gap: 16px;
+    grid-template-columns: 1fr; /* 1 image per row on phones */
+  }
+  
+  .mobile-hidden {
+    display: none; /* Limits initial mobile view to 3 items */
   }
 }
