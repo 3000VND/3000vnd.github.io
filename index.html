@@ -48,22 +48,52 @@
       </div>
     </section>
 
-    <!-- 2. PORTFOLIO GRID SECTION -->
+    <!-- 2. PORTFOLIO GRID SECTION WITH TABS AND EXPANSION -->
     <section id="portfolio" class="section">
       <h2 class="section-title">Works</h2>
-      <div class="portfolio-grid">
-        <div class="portfolio-item">
-          <img src="https://via.placeholder.com/400x300" alt="Artwork 1">
-          <div class="portfolio-caption">Sample Artwork #1</div>
+
+      <!-- Portfolio Category Filter Tabs -->
+      <div class="portfolio-tabs">
+        <button class="tab-btn active" onclick="filterPortfolio('all')">All</button>
+        <button class="tab-btn" onclick="filterPortfolio('character')">Character</button>
+        <button class="tab-btn" onclick="filterPortfolio('visdev')">Visdev</button>
+        <button class="tab-btn" onclick="filterPortfolio('animation')">Animation</button>
+        <button class="tab-btn" onclick="filterPortfolio('sketch')">Sketch</button>
+      </div>
+
+      <div class="portfolio-grid" id="portfolio-grid">
+        <!-- Initial visible items (3) -->
+        <div class="portfolio-item character">
+          <img src="https://via.placeholder.com/400x300" alt="Character Artwork 1">
+          <div class="portfolio-caption">Character Concept #1</div>
         </div>
-        <div class="portfolio-item">
-          <img src="https://via.placeholder.com/400x300" alt="Artwork 2">
-          <div class="portfolio-caption">Sample Artwork #2</div>
+        <div class="portfolio-item visdev">
+          <img src="https://via.placeholder.com/400x300" alt="Visdev Artwork 1">
+          <div class="portfolio-caption">Environment Visdev #1</div>
         </div>
-        <div class="portfolio-item">
-          <img src="https://via.placeholder.com/400x300" alt="Artwork 3">
-          <div class="portfolio-caption">Sample Artwork #3</div>
+        <div class="portfolio-item animation">
+          <img src="https://via.placeholder.com/400x300" alt="Animation Artwork 1">
+          <div class="portfolio-caption">Sketch Animation Loop</div>
         </div>
+
+        <!-- Hidden extra items (3) revealed on "Show More" -->
+        <div class="portfolio-item sketch hidden-item">
+          <img src="https://via.placeholder.com/400x300" alt="Sketch Artwork 1">
+          <div class="portfolio-caption">Monochrome Sketch #1</div>
+        </div>
+        <div class="portfolio-item character hidden-item">
+          <img src="https://via.placeholder.com/400x300" alt="Character Artwork 2">
+          <div class="portfolio-caption">Character Concept #2</div>
+        </div>
+        <div class="portfolio-item visdev hidden-item">
+          <img src="https://via.placeholder.com/400x300" alt="Visdev Artwork 2">
+          <div class="portfolio-caption">Visdev Scene #2</div>
+        </div>
+      </div>
+
+      <!-- Show More Button -->
+      <div class="show-more-container">
+        <button id="show-more-btn" onclick="togglePortfolio()">Show More Works ↓</button>
       </div>
     </section>
 
@@ -114,6 +144,55 @@
   <footer>
     <p>© 3000VND. All rights reserved.</p>
   </footer>
+
+  <!-- Light JavaScript for Tabs & Show More Expansion -->
+  <script>
+    let isExpanded = false;
+
+    function togglePortfolio() {
+      const hiddenItems = document.querySelectorAll('.hidden-item');
+      const btn = document.getElementById('show-more-btn');
+      
+      isExpanded = !isExpanded;
+      
+      hiddenItems.forEach(item => {
+        if (isExpanded) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      btn.innerText = isExpanded ? 'Show Less ↑' : 'Show More Works ↓';
+    }
+
+    function filterPortfolio(category) {
+      const tabs = document.querySelectorAll('.tab-btn');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const items = document.querySelectorAll('.portfolio-item');
+      const btn = document.getElementById('show-more-btn');
+
+      items.forEach(item => {
+        if (category === 'all') {
+          if (item.classList.contains('hidden-item') && !isExpanded) {
+            item.style.display = 'none';
+          } else {
+            item.style.display = 'block';
+          }
+          btn.style.display = 'inline-block';
+        } else {
+          btn.style.display = 'none'; // Hide "Show More" when filtering specific category
+          if (item.classList.contains(category)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        }
+      });
+    }
+  </script>
 
 </body>
 </html>
