@@ -215,7 +215,7 @@ h1 {
   font-size: 1.1rem;
 }
 
-/* Portfolio Gallery (Desktop: 5 columns) */
+/* Portfolio Gallery Card Container */
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -223,10 +223,12 @@ h1 {
 }
 
 .portfolio-item {
+  position: relative; /* Essential for absolute overlay positioning */
+  overflow: hidden;   /* Clips the caption when hidden below */
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
-  overflow: hidden;
+  cursor: pointer;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
@@ -246,11 +248,24 @@ h1 {
   display: block;
 }
 
+/* Hover-Reveal Caption Overlay */
 .portfolio-caption {
-  padding: 10px 12px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0));
+  color: #ffffff;
+  padding: 24px 12px 12px 12px;
   font-size: 0.8rem;
-  color: var(--text-muted);
+  font-weight: 500;
   text-align: center;
+  transform: translateY(100%); /* Hides the caption completely below the card */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio-item:hover .portfolio-caption {
+  transform: translateY(0); /* Slides the caption up smoothly on hover */
 }
 
 /* Show More Button */
@@ -340,13 +355,173 @@ footer {
   border-top: 1px solid var(--border-color);
 }
 
+/* --- MICROSOFT PHOTOS LIGHTBOX STYLING --- */
+.photos-lightbox {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(20, 18, 16, 0.95);
+  backdrop-filter: blur(8px);
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.lightbox-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  color: #fff;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+}
+
+.lightbox-title-text {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.lightbox-close-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.lightbox-close-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.lightbox-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  padding: 0 20px;
+  overflow: hidden;
+}
+
+.lightbox-main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  padding: 10px;
+}
+
+.lightbox-main-container img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.lightbox-nav-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 10;
+}
+
+.lightbox-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.lightbox-filmstrip-container {
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 20px;
+  width: 100%;
+}
+
+.lightbox-filmstrip {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) rgba(255, 255, 255, 0.1);
+}
+
+.lightbox-thumb {
+  flex: 0 0 70px;
+  height: 50px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.5;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.lightbox-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lightbox-thumb:hover {
+  opacity: 0.8;
+}
+
+.lightbox-thumb.active {
+  opacity: 1;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
 /* RESPONSIVE MEDIA QUERY FOR PHONES (Max-width: 768px) */
 @media (max-width: 768px) {
   .portfolio-grid {
-    grid-template-columns: 1fr; /* 1 image per row on phones */
+    grid-template-columns: 1fr;
   }
   
   .mobile-hidden {
-    display: none; /* Limits initial mobile view to 3 items */
+    display: none;
+  }
+
+  /* Keep captions visible by default on mobile since hover doesn't exist */
+  .portfolio-caption {
+    position: static;
+    transform: translateY(0);
+    background: transparent;
+    color: var(--text-muted);
+    padding: 10px 12px;
+  }
+
+  .lightbox-nav-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+  
+  .lightbox-body {
+    padding: 0 5px;
   }
 }
