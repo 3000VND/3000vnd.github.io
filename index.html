@@ -48,7 +48,7 @@
       </div>
     </section>
 
-    <!-- 2. PORTFOLIO GRID SECTION (5 visible by default) -->
+    <!-- 2. PORTFOLIO GRID SECTION -->
     <section id="portfolio" class="section">
       <h2 class="section-title">Works</h2>
 
@@ -62,7 +62,7 @@
       </div>
 
       <div class="portfolio-grid" id="portfolio-grid">
-        <!-- Initial visible items (5) -->
+        <!-- Initial visible items (All 5 show on desktop; first 3 show on mobile) -->
         <div class="portfolio-item character">
           <img src="https://via.placeholder.com/400x300" alt="Character Artwork 1">
           <div class="portfolio-caption">Sample Artwork #1</div>
@@ -75,16 +75,16 @@
           <img src="https://via.placeholder.com/400x300" alt="Animation Artwork 1">
           <div class="portfolio-caption">Sample Artwork #3</div>
         </div>
-        <div class="portfolio-item character">
+        <div class="portfolio-item character mobile-hidden">
           <img src="https://via.placeholder.com/400x300" alt="Character Artwork 2">
           <div class="portfolio-caption">Sample Artwork #4</div>
         </div>
-        <div class="portfolio-item sketch">
+        <div class="portfolio-item sketch mobile-hidden">
           <img src="https://via.placeholder.com/400x300" alt="Sketch Artwork 1">
           <div class="portfolio-caption">Sample Artwork #5</div>
         </div>
 
-        <!-- Hidden extra items revealed on "Show More" -->
+        <!-- Hidden extra items revealed on "Show More" (both desktop & mobile) -->
         <div class="portfolio-item visdev hidden-item">
           <img src="https://via.placeholder.com/400x300" alt="Visdev Artwork 2">
           <div class="portfolio-caption">Sample Artwork #6</div>
@@ -143,7 +143,7 @@
       </a>
 
       <div class="footer-note">
-        Questions or requests? Email me at <a href="mailto:helomoto97@yahoo.com.vn">helomoto97@yahoo.com.vn</a>
+        Questions or custom requests? Email me at <a href="mailto:helomoto97@yahoo.com.vn">helomoto97@yahoo.com.vn</a>
       </div>
     </section>
 
@@ -153,21 +153,24 @@
     <p>© 3000VND. All rights reserved.</p>
   </footer>
 
-  <!-- Light JavaScript for Tabs & Show More Expansion -->
+  <!-- Light JavaScript for Responsive Tabs & Expansion -->
   <script>
     let isExpanded = false;
 
     function togglePortfolio() {
       const hiddenItems = document.querySelectorAll('.hidden-item');
+      const mobileHiddenItems = document.querySelectorAll('.mobile-hidden');
       const btn = document.getElementById('show-more-btn');
       
       isExpanded = !isExpanded;
       
       hiddenItems.forEach(item => {
-        if (isExpanded) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
+        item.style.display = isExpanded ? 'block' : 'none';
+      });
+
+      mobileHiddenItems.forEach(item => {
+        if (window.innerWidth <= 768) {
+          item.style.display = isExpanded ? 'block' : 'none';
         }
       });
 
@@ -185,6 +188,8 @@
       items.forEach(item => {
         if (category === 'all') {
           if (item.classList.contains('hidden-item') && !isExpanded) {
+            item.style.display = 'none';
+          } else if (window.innerWidth <= 768 && item.classList.contains('mobile-hidden') && !isExpanded) {
             item.style.display = 'none';
           } else {
             item.style.display = 'block';
