@@ -88,10 +88,10 @@ body {
   scroll-margin-top: 70px;
 }
 
-/* 2. PORTFOLIO SECTION (Wide layout for 5 large columns in one row) */
+/* 2. PORTFOLIO SECTION (Desktop Wide layout for 5 columns) */
 #portfolio {
   width: 100%;
-  max-width: 1700px; /* Expands wide enough to fit 5 big cards comfortably */
+  max-width: 1700px;
   margin: 0 auto;
   padding: 20px 20px;
   margin-bottom: 60px;
@@ -215,7 +215,7 @@ h1 {
   font-size: 1.1rem;
 }
 
-/* Portfolio Gallery (Forces exactly 5 large columns in one clean row) */
+/* Portfolio Gallery (Desktop: 5 columns in a single row) */
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -241,7 +241,7 @@ h1 {
 
 .portfolio-item img {
   width: 100%;
-  height: 240px; /* Keeps your preferred large image height */
+  height: 240px;
   object-fit: cover;
   display: block;
 }
@@ -338,4 +338,12 @@ footer {
   color: var(--text-muted);
   padding: 30px 20px;
   border-top: 1px solid var(--border-color);
+}
+
+/* MOBILE RESPONSIVE FIX (Screens smaller than 768px) */
+@media (max-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr; /* Forces 1 large image per row on phones */
+    gap: 16px;
+  }
 }
