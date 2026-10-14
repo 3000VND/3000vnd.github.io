@@ -22,7 +22,7 @@ body {
   line-height: 1.6;
 }
 
-/* Sticky Top Navigation Bar (Centered & Preserved at 800px) */
+/* Sticky Top Navigation Bar */
 .navbar {
   position: sticky;
   top: 0;
@@ -88,10 +88,10 @@ body {
   scroll-margin-top: 70px;
 }
 
-/* 2. PORTFOLIO SECTION (Extra Wide 1200px width) */
+/* 2. PORTFOLIO SECTION (Wide enough for 5 items in one row) */
 #portfolio {
   width: 100%;
-  max-width: 1200px; /* Increased from 960px to 1200px */
+  max-width: 1350px; /* Widened to comfortably fit 5 columns */
   margin: 0 auto;
   padding: 20px 20px;
   margin-bottom: 60px;
@@ -215,11 +215,11 @@ h1 {
   font-size: 1.1rem;
 }
 
-/* Portfolio Gallery (Responsive grid with large artwork cards) */
+/* Portfolio Gallery (Forces exactly 5 columns in a single row) */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
 }
 
 .portfolio-item {
@@ -241,14 +241,14 @@ h1 {
 
 .portfolio-item img {
   width: 100%;
-  height: 260px; /* Slightly taller images for bigger impact */
+  height: 210px; /* Balanced height for 5-column layout */
   object-fit: cover;
   display: block;
 }
 
 .portfolio-caption {
-  padding: 10px 12px;
-  font-size: 0.8rem;
+  padding: 8px 10px;
+  font-size: 0.75rem;
   color: var(--text-muted);
   text-align: center;
 }
