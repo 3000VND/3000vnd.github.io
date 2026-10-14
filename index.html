@@ -48,7 +48,7 @@
       </div>
     </section>
 
-    <!-- 2. PORTFOLIO GRID SECTION -->
+    <!-- 2. PORTFOLIO GRID SECTION (Dynamically populated via JSON) -->
     <section id="portfolio" class="section">
       <h2 class="section-title">Works</h2>
 
@@ -61,43 +61,8 @@
         <button class="tab-btn" onclick="filterPortfolio('sketch')">Sketch</button>
       </div>
 
-      <div class="portfolio-grid" id="portfolio-grid">
-        <!-- Initial visible items (All 5 show on desktop; first 3 show on mobile) -->
-        <div class="portfolio-item character">
-          <img src="https://via.placeholder.com/400x300" alt="Character Artwork 1">
-          <div class="portfolio-caption">Sample Artwork #1</div>
-        </div>
-        <div class="portfolio-item visdev">
-          <img src="https://via.placeholder.com/400x300" alt="Visdev Artwork 1">
-          <div class="portfolio-caption">Sample Artwork #2</div>
-        </div>
-        <div class="portfolio-item animation">
-          <img src="https://via.placeholder.com/400x300" alt="Animation Artwork 1">
-          <div class="portfolio-caption">Sample Artwork #3</div>
-        </div>
-        <div class="portfolio-item character mobile-hidden">
-          <img src="https://via.placeholder.com/400x300" alt="Character Artwork 2">
-          <div class="portfolio-caption">Sample Artwork #4</div>
-        </div>
-        <div class="portfolio-item sketch mobile-hidden">
-          <img src="https://via.placeholder.com/400x300" alt="Sketch Artwork 1">
-          <div class="portfolio-caption">Sample Artwork #5</div>
-        </div>
-
-        <!-- Hidden extra items revealed on "Show More" (both desktop & mobile) -->
-        <div class="portfolio-item visdev hidden-item">
-          <img src="https://via.placeholder.com/400x300" alt="Visdev Artwork 2">
-          <div class="portfolio-caption">Sample Artwork #6</div>
-        </div>
-        <div class="portfolio-item animation hidden-item">
-          <img src="https://via.placeholder.com/400x300" alt="Animation Artwork 2">
-          <div class="portfolio-caption">Sample Artwork #7</div>
-        </div>
-        <div class="portfolio-item sketch hidden-item">
-          <img src="https://via.placeholder.com/400x300" alt="Sketch Artwork 2">
-          <div class="portfolio-caption">Sample Artwork #8</div>
-        </div>
-      </div>
+      <!-- Grid injected by script below -->
+      <div class="portfolio-grid" id="portfolio-grid"></div>
 
       <!-- Show More Button -->
       <div class="show-more-container">
@@ -153,28 +118,63 @@
     <p>© 3000VND. All rights reserved.</p>
   </footer>
 
-  <!-- Light JavaScript for Responsive Tabs & Expansion -->
+  <!-- Modular JSON-Driven Portfolio Engine -->
   <script>
+    let portfolioData = [];
+    let currentCategory = 'all';
     let isExpanded = false;
 
-    function togglePortfolio() {
-      const hiddenItems = document.querySelectorAll('.hidden-item');
-      const mobileHiddenItems = document.querySelectorAll('.mobile-hidden');
-      const btn = document.getElementById('show-more-btn');
-      
-      isExpanded = !isExpanded;
-      
-      hiddenItems.forEach(item => {
-        item.style.display = isExpanded ? 'block' : 'none';
-      });
+    async function loadPortfolio() {
+      try {
+        const response = await fetch('portfolio.json');
+        portfolioData = await response.json();
+        renderPortfolio();
+      } catch (error) {
+        console.error('Failed to load portfolio data:', error);
+      }
+    }
 
-      mobileHiddenItems.forEach(item => {
-        if (window.innerWidth <= 768) {
-          item.style.display = isExpanded ? 'block' : 'none';
+    function renderPortfolio() {
+      const grid = document.getElementById('portfolio-grid');
+      grid.innerHTML = '';
+
+      portfolioData.forEach((item, index) => {
+        if (currentCategory !== 'all' && item.category !== currentCategory) {
+          return;
         }
+
+        let isHidden = false;
+        if (currentCategory === 'all') {
+          const isMobile = window.innerWidth <= 768;
+          const limit = isMobile ? 3 : 5;
+          if (index >= limit && !isExpanded) {
+            isHidden = true;
+          }
+        }
+
+        const card = document.createElement('div');
+        card.className = `portfolio-item ${item.category}`;
+        if (isHidden) card.classList.add('hidden-item');
+
+        card.innerHTML = `
+          <img src="${item.src}" alt="${item.alt}">
+          <div class="portfolio-caption">${item.title}</div>
+        `;
+        grid.appendChild(card);
       });
 
-      btn.innerText = isExpanded ? 'Show Less ↑' : 'Show More Works ↓';
+      const btn = document.getElementById('show-more-btn');
+      if (currentCategory === 'all') {
+        btn.style.display = 'inline-block';
+        btn.innerText = isExpanded ? 'Show Less ↑' : 'Show More Works ↓';
+      } else {
+        btn.style.display = 'none';
+      }
+    }
+
+    function togglePortfolio() {
+      isExpanded = !isExpanded;
+      renderPortfolio();
     }
 
     function filterPortfolio(category) {
@@ -182,29 +182,15 @@
       tabs.forEach(tab => tab.classList.remove('active'));
       event.target.classList.add('active');
 
-      const items = document.querySelectorAll('.portfolio-item');
-      const btn = document.getElementById('show-more-btn');
-
-      items.forEach(item => {
-        if (category === 'all') {
-          if (item.classList.contains('hidden-item') && !isExpanded) {
-            item.style.display = 'none';
-          } else if (window.innerWidth <= 768 && item.classList.contains('mobile-hidden') && !isExpanded) {
-            item.style.display = 'none';
-          } else {
-            item.style.display = 'block';
-          }
-          btn.style.display = 'inline-block';
-        } else {
-          btn.style.display = 'none'; 
-          if (item.classList.contains(category)) {
-            item.style.display = 'block';
-          } else {
-            item.style.display = 'none';
-          }
-        }
-      });
+      currentCategory = category;
+      isExpanded = category !== 'all'; 
+      renderPortfolio();
     }
+
+    document.addEventListener('DOMContentLoaded', loadPortfolio);
+    window.addEventListener('resize', () => {
+      if (currentCategory === 'all') renderPortfolio();
+    });
   </script>
 
 </body>
