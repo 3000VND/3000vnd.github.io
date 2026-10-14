@@ -34,7 +34,7 @@ body {
 }
 
 .nav-container {
-  max-width: 700px; /* Matched strictly to content container width */
+  max-width: 700px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -191,6 +191,7 @@ h1 {
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 24px;
+  text-align: center; /* Centers title and paragraph inside About card */
 }
 
 .about-card h2 {
