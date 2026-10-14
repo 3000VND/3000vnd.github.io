@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sawyer's Commissions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fcf9f2;
+            --card-bg: #ffffff;
+            --text-main: #4a3c31;
+            --text-muted: #7c6f64;
+            --accent: #d8c2a8;
+            --border-color: #e6ded1;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 2px solid var(--border-color);
+        }
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+            color: #3b2e25;
+        }
+        .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+        .desc {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+        .social-pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+        .pill {
+            background-color: #f3eee3;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .pill:hover {
+            background-color: var(--accent);
+        }
+        .section-divider {
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin: 40px 0 20px 0;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        .section-divider::before, .section-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px dashed var(--border-color);
+            margin: 0 10px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+        .card:hover {
+            border-color: var(--accent);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .card-price {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #8c6d48;
+        }
+        .card-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        .about-box {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            text-align: left;
+            color: var(--text-main);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        .footer-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 40px;
+            line-height: 1.5;
+        }
+        .footer-note a {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Avatar & Header -->
+        <img src="YOUR_AVATAR_IMAGE_LINK.jpg" alt="Avatar" class="avatar">
+        <h1>Your Name's Commissions</h1>
+        <div class="subtitle">open slots, booked first come first served</div>
+        <div class="desc">Pick a tier below, pay through Stripe, and I'll follow up in Discord to get your reference details.</div>
+
+        <!-- Social Links -->
+        <div class="social-pills">
+            <a href="https://twitter.com" target="_blank" class="pill">Twitter</a>
+            <a href="https://bsky.app" target="_blank" class="pill">Bluesky</a>
+            <a href="https://discord.com" target="_blank" class="pill">Discord</a>
+            <a href="https://ko-fi.com" target="_blank" class="pill">Ko-fi</a>
+        </div>
+
+        <!-- Section: Commissions -->
+        <div class="section-divider">For the Commissioners</div>
+
+        <a href="YOUR_STRIPE_LINK" class="card">
+            <div class="card-header">
+                <span class="card-title">Sketch Animation</span>
+                <span class="card-price">$300</span>
+            </div>
+            <p class="card-desc">Line work, animated · up to 2 OCs · 48 hr turnaround</p>
+        </a>
+
+        <a href="YOUR_STRIPE_LINK" class="card">
+            <div class="card-header">
+                <span class="card-title">Colored Sketch Animation</span>
+                <span class="card-price">$500</span>
+            </div>
+            <p class="card-desc">Full color, animated · up to 2 OCs · ~2 day turnaround</p>
+        </a>
+
+        <!-- Section: About Me -->
+        <div class="section-divider">About Me</div>
+        <div class="about-box">
+            Write a short bio about your experience, background, and what makes your work unique here.
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-note">
+            Questions before you book? Join my <a href="YOUR_DISCORD_INVITE">Discord</a> and message me there.
+        </div>
+    </div>
+</body>
+</html>
