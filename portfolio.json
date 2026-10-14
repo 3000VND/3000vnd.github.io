@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "title": "Sample Artwork #1",
+    "category": "character",
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Character Artwork 1"
+  },
+  {
+    "id": 2,
+    "title": "Sample Artwork #2",
+    "category": "visdev",
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Visdev Artwork 1"
+  },
+  {
+    "id": 3,
+    "title": "Sample Artwork #3",
+    "category": "animation",
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Animation Artwork 1"
+  },
+  {
+    "id": 4,
+    "title": "Sample Artwork #4",
+    "category": "character",
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Character Artwork 2"
+  },
+  {
+    "id": 5,
+    "title": "Sample Artwork #5",
+    "category": "sketch",
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Sketch Artwork 1"
+  },
+  {
+    "id": 6,
+    "title": "Sample Artwork #6",
+    "category": "visdev",
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Visdev Artwork 2"
+  },
+  {
+    "id": 7,
+    "title": "Sample Artwork #7",
+    "category": "animation",
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Animation Artwork 2"
+  },
+  {
+    "id": 8,
+    "title": "Sample Artwork #8",
+    "category": "sketch",
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Sketch Artwork 2"
+  }
+]
