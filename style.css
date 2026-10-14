@@ -78,7 +78,7 @@ body {
   color: #fff;
 }
 
-/* MAIN CONTAINER (Narrow cozy width for About & Commissions) */
+/* MAIN CONTAINER */
 .container {
   width: 100%;
   max-width: 680px; 
@@ -87,11 +87,12 @@ body {
 }
 
 .section {
-  padding-top: 40px;
+  padding-top: 20px;
   margin-bottom: 60px;
+  scroll-margin-top: 70px; /* Offset for sticky nav bar */
 }
 
-/* PORTFOLIO SECTION (Expands wider than the main container) */
+/* PORTFOLIO SECTION */
 #portfolio {
   max-width: 1000px;
   margin-left: auto;
@@ -238,4 +239,43 @@ h1 {
 .card-header {
   display: flex;
   justify-content: space-between;
-  align-items:
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.price {
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 30px;
+}
+
+.footer-note a {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding: 30px 20px;
+  border-top: 1px solid var(--border-color);
+}
