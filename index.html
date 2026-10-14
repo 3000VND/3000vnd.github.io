@@ -119,11 +119,40 @@
     <p>© 3000VND. All rights reserved.</p>
   </footer>
 
-  <!-- Modular JSON-Driven Portfolio Engine -->
+  <!-- Microsoft Photos Style Lightbox Modal -->
+  <div id="lightbox" class="photos-lightbox" onclick="handleBackdropClick(event)">
+    
+    <!-- Top Bar: Title & Close -->
+    <div class="lightbox-header">
+      <div id="lightbox-title" class="lightbox-title-text">Artwork Title</div>
+      <button class="lightbox-close-btn" onclick="closeLightbox()">&times;</button>
+    </div>
+
+    <!-- Center Area: Nav Arrows & Main Media -->
+    <div class="lightbox-body">
+      <button class="lightbox-nav-btn prev-btn" onclick="navigateLightbox(-1)">&#10094;</button>
+      
+      <div class="lightbox-main-container">
+        <img id="lightbox-img" src="" alt="Full Resolution Artwork" onclick="event.stopPropagation()">
+      </div>
+
+      <button class="lightbox-nav-btn next-btn" onclick="navigateLightbox(1)">&#10095;</button>
+    </div>
+
+    <!-- Bottom Area: Horizontal Scrollable Filmstrip Thumbnail Strip -->
+    <div class="lightbox-filmstrip-container" onclick="event.stopPropagation()">
+      <div id="lightbox-filmstrip" class="lightbox-filmstrip"></div>
+    </div>
+
+  </div>
+
+  <!-- Modular JSON-Driven Portfolio Engine & Lightbox Controller -->
   <script>
     let portfolioData = [];
     let currentCategory = 'all';
     let isExpanded = false;
+    let currentLightboxIndex = 0;
+    let isLightboxOpen = false;
 
     async function loadPortfolio() {
       try {
@@ -161,6 +190,12 @@
           <img src="${item.src}" alt="${item.alt}">
           <div class="portfolio-caption">${item.title}</div>
         `;
+
+        // Click card to open Microsoft Photos style lightbox
+        card.addEventListener('click', () => {
+          openLightbox(index);
+        });
+
         grid.appendChild(card);
       });
 
@@ -172,6 +207,98 @@
         btn.style.display = 'none';
       }
     }
+
+    // Lightbox Control Functions with History API Integration (Mobile Back/Swipe Support)
+    function openLightbox(index) {
+      currentLightboxIndex = index;
+      isLightboxOpen = true;
+      document.getElementById('lightbox').style.display = 'flex';
+      
+      history.pushState({ lightbox: true }, '');
+
+      updateLightboxContent();
+      renderFilmstrip();
+    }
+
+    function closeLightbox(isFromPopState = false) {
+      if (!isLightboxOpen) return;
+      isLightboxOpen = false;
+      
+      document.getElementById('lightbox').style.display = 'none';
+
+      if (!isFromPopState) {
+        window.history.back();
+      }
+    }
+
+    function handleBackdropClick(event) {
+      if (event.target.id === 'lightbox') {
+        closeLightbox();
+      }
+    }
+
+    window.addEventListener('popstate', (event) => {
+      if (isLightboxOpen) {
+        closeLightbox(true);
+      }
+    });
+
+    function navigateLightbox(direction) {
+      currentLightboxIndex += direction;
+      if (currentLightboxIndex < 0) {
+        currentLightboxIndex = portfolioData.length - 1;
+      } else if (currentLightboxIndex >= portfolioData.length) {
+        currentLightboxIndex = 0;
+      }
+      updateLightboxContent();
+      updateActiveThumbnail();
+    }
+
+    function updateLightboxContent() {
+      const item = portfolioData[currentLightboxIndex];
+      document.getElementById('lightbox-img').src = item.src;
+      document.getElementById('lightbox-title').innerText = item.title;
+    }
+
+    function renderFilmstrip() {
+      const filmstrip = document.getElementById('lightbox-filmstrip');
+      filmstrip.innerHTML = '';
+
+      portfolioData.forEach((item, index) => {
+        const thumb = document.createElement('div');
+        thumb.className = `lightbox-thumb ${index === currentLightboxIndex ? 'active' : ''}`;
+        thumb.innerHTML = `<img src="${item.src}" alt="${item.alt}">`;
+        
+        thumb.addEventListener('click', () => {
+          currentLightboxIndex = index;
+          updateLightboxContent();
+          updateActiveThumbnail();
+        });
+
+        filmstrip.appendChild(thumb);
+      });
+    }
+
+    function updateActiveThumbnail() {
+      const thumbs = document.querySelectorAll('.lightbox-thumb');
+      thumbs.forEach((thumb, index) => {
+        if (index === currentLightboxIndex) {
+          thumb.classList.add('active');
+          thumb.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+        } else {
+          thumb.classList.remove('active');
+        }
+      });
+    }
+
+    // Desktop keyboard controls
+    document.addEventListener('keydown', (e) => {
+      if (isLightboxOpen) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+      }
+    });
 
     function togglePortfolio() {
       isExpanded = !isExpanded;
