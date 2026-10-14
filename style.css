@@ -22,7 +22,7 @@ body {
   line-height: 1.6;
 }
 
-/* Sticky Top Navigation Bar */
+/* Sticky Top Navigation Bar (Centered & Preserved at 800px) */
 .navbar {
   position: sticky;
   top: 0;
@@ -78,7 +78,7 @@ body {
   color: #fff;
 }
 
-/* 1. ABOUT SECTION (Narrow 700px cozy width) */
+/* 1. ABOUT SECTION (Cozy 700px width) */
 #about {
   width: 100%;
   max-width: 700px;
@@ -88,17 +88,17 @@ body {
   scroll-margin-top: 70px;
 }
 
-/* 2. PORTFOLIO SECTION (Wide 960px width for large thumbnails) */
+/* 2. PORTFOLIO SECTION (Extra Wide 1200px width) */
 #portfolio {
   width: 100%;
-  max-width: 960px;
+  max-width: 1200px; /* Increased from 960px to 1200px */
   margin: 0 auto;
   padding: 20px 20px;
   margin-bottom: 60px;
   scroll-margin-top: 70px;
 }
 
-/* 3. COMMISSIONS SECTION (Narrow 700px cozy width) */
+/* 3. COMMISSIONS SECTION (Cozy 700px width) */
 #commissions {
   width: 100%;
   max-width: 700px;
@@ -215,7 +215,7 @@ h1 {
   font-size: 1.1rem;
 }
 
-/* Portfolio Gallery (Spreads wide across 960px with big thumbnails) */
+/* Portfolio Gallery (Responsive grid with large artwork cards) */
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -241,7 +241,7 @@ h1 {
 
 .portfolio-item img {
   width: 100%;
-  height: 240px;
+  height: 260px; /* Slightly taller images for bigger impact */
   object-fit: cover;
   display: block;
 }
