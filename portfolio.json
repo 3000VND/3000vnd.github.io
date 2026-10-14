@@ -1,10 +1,10 @@
 [
   {
     "id": 1,
-    "title": "Sample Artwork #1",
-    "category": "character",
-    "src": "https://via.placeholder.com/400x300",
-    "alt": "Character Artwork 1"
+    "title": "Sample Visdev #1",
+    "category": "visdev",
+    "src": "assets/visdev/VisDev1.webp",
+    "alt": "The Fool Party "
   },
   {
     "id": 2,
