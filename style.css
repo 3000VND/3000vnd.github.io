@@ -88,10 +88,10 @@ body {
   scroll-margin-top: 70px;
 }
 
-/* 2. PORTFOLIO SECTION (Wide layout for large artworks) */
+/* 2. PORTFOLIO SECTION (Wide layout for 5 large columns in one row) */
 #portfolio {
   width: 100%;
-  max-width: 1300px;
+  max-width: 1700px; /* Expands wide enough to fit 5 big cards comfortably */
   margin: 0 auto;
   padding: 20px 20px;
   margin-bottom: 60px;
@@ -215,20 +215,14 @@ h1 {
   font-size: 1.1rem;
 }
 
-/* Portfolio Horizontal Scrolling Row (Keeps images full-sized & crisp) */
+/* Portfolio Gallery (Forces exactly 5 large columns in one clean row) */
 .portfolio-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 16px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent) var(--border-color);
 }
 
 .portfolio-item {
-  flex: 0 0 320px; /* Forces each card to stay large and prevents shrinking */
-  scroll-snap-align: start;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
@@ -247,7 +241,7 @@ h1 {
 
 .portfolio-item img {
   width: 100%;
-  height: 240px; /* Restored back to your original large, high-impact height */
+  height: 240px; /* Keeps your preferred large image height */
   object-fit: cover;
   display: block;
 }
