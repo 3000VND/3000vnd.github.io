@@ -34,7 +34,7 @@ body {
 }
 
 .nav-container {
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -78,25 +78,34 @@ body {
   color: #fff;
 }
 
-/* Main Container (Wide enough for big portfolio thumbnails) */
-.container {
+/* 1. ABOUT SECTION (Narrow 700px cozy width) */
+#about {
   width: 100%;
-  max-width: 900px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 40px 20px;
-}
-
-.section {
-  padding-top: 20px;
+  padding: 20px 20px;
   margin-bottom: 60px;
   scroll-margin-top: 70px;
 }
 
-/* Restrict About & Commissions to narrow cozy width */
-.narrow-section {
+/* 2. PORTFOLIO SECTION (Wide 960px width for large thumbnails) */
+#portfolio {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px 20px;
+  margin-bottom: 60px;
+  scroll-margin-top: 70px;
+}
+
+/* 3. COMMISSIONS SECTION (Narrow 700px cozy width) */
+#commissions {
+  width: 100%;
   max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  padding: 20px 20px;
+  margin-bottom: 60px;
+  scroll-margin-top: 70px;
 }
 
 .section-title {
@@ -206,10 +215,10 @@ h1 {
   font-size: 1.1rem;
 }
 
-/* Portfolio Gallery (Spreads wide across the 900px container) */
+/* Portfolio Gallery (Spreads wide across 960px with big thumbnails) */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 
