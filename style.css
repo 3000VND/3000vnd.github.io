@@ -34,7 +34,7 @@ body {
 }
 
 .nav-container {
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -78,10 +78,10 @@ body {
   color: #fff;
 }
 
-/* Container & Sections */
+/* Main Container (Wide enough for big portfolio thumbnails) */
 .container {
   width: 100%;
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 40px 20px;
 }
@@ -90,6 +90,13 @@ body {
   padding-top: 20px;
   margin-bottom: 60px;
   scroll-margin-top: 70px;
+}
+
+/* Restrict About & Commissions to narrow cozy width */
+.narrow-section {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section-title {
@@ -191,7 +198,7 @@ h1 {
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 24px;
-  text-align: center; /* Centers title and paragraph inside About card */
+  text-align: center;
 }
 
 .about-card h2 {
@@ -199,11 +206,11 @@ h1 {
   font-size: 1.1rem;
 }
 
-/* Portfolio Gallery */
+/* Portfolio Gallery (Spreads wide across the 900px container) */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
 }
 
 .portfolio-item {
@@ -225,7 +232,7 @@ h1 {
 
 .portfolio-item img {
   width: 100%;
-  height: 200px;
+  height: 240px;
   object-fit: cover;
   display: block;
 }
