@@ -25,12 +25,12 @@
 
   <main class="container">
     
-    <!-- 1. ABOUT SECTION (Narrow & Centered) -->
-    <section id="about" class="section narrow-section">
+    <!-- 1. ABOUT SECTION -->
+    <section id="about" class="section">
       <header class="profile-header">
         <img src="https://via.placeholder.com/150" alt="Profile Picture" class="avatar">
         <h1>3000VND</h1>
-        <p class="tagline">Artist & Illustrator</p>
+        <p class="tagline">Artist/Animator</p>
       </header>
 
       <div class="social-links">
@@ -48,7 +48,7 @@
       </div>
     </section>
 
-    <!-- 2. PORTFOLIO SECTION (Wide with large thumbnails) -->
+    <!-- 2. PORTFOLIO GRID SECTION (5 visible by default) -->
     <section id="portfolio" class="section">
       <h2 class="section-title">Works</h2>
 
@@ -62,7 +62,7 @@
       </div>
 
       <div class="portfolio-grid" id="portfolio-grid">
-        <!-- Initial visible items (3) -->
+        <!-- Initial visible items (5) -->
         <div class="portfolio-item character">
           <img src="https://via.placeholder.com/400x300" alt="Character Artwork 1">
           <div class="portfolio-caption">Sample Artwork #1</div>
@@ -75,19 +75,27 @@
           <img src="https://via.placeholder.com/400x300" alt="Animation Artwork 1">
           <div class="portfolio-caption">Sample Artwork #3</div>
         </div>
-
-        <!-- Hidden extra items (3) revealed on "Show More" -->
-        <div class="portfolio-item sketch hidden-item">
-          <img src="https://via.placeholder.com/400x300" alt="Sketch Artwork 1">
+        <div class="portfolio-item character">
+          <img src="https://via.placeholder.com/400x300" alt="Character Artwork 2">
           <div class="portfolio-caption">Sample Artwork #4</div>
         </div>
-        <div class="portfolio-item character hidden-item">
-          <img src="https://via.placeholder.com/400x300" alt="Character Artwork 2">
+        <div class="portfolio-item sketch">
+          <img src="https://via.placeholder.com/400x300" alt="Sketch Artwork 1">
           <div class="portfolio-caption">Sample Artwork #5</div>
         </div>
+
+        <!-- Hidden extra items revealed on "Show More" -->
         <div class="portfolio-item visdev hidden-item">
           <img src="https://via.placeholder.com/400x300" alt="Visdev Artwork 2">
           <div class="portfolio-caption">Sample Artwork #6</div>
+        </div>
+        <div class="portfolio-item animation hidden-item">
+          <img src="https://via.placeholder.com/400x300" alt="Animation Artwork 2">
+          <div class="portfolio-caption">Sample Artwork #7</div>
+        </div>
+        <div class="portfolio-item sketch hidden-item">
+          <img src="https://via.placeholder.com/400x300" alt="Sketch Artwork 2">
+          <div class="portfolio-caption">Sample Artwork #8</div>
         </div>
       </div>
 
@@ -97,8 +105,8 @@
       </div>
     </section>
 
-    <!-- 3. COMMISSIONS SECTION (Narrow & Centered) -->
-    <section id="commissions" class="section narrow-section">
+    <!-- 3. COMMISSIONS SECTION -->
+    <section id="commissions" class="section">
       <h2 class="section-title">Commission Tiers & Extras</h2>
       <p class="section-subtitle">Open slots · Booked first-come, first-served.</p>
 
