@@ -161,7 +161,7 @@ body {
   height: 96px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   border: 2px solid var(--border-color);
 }
 
