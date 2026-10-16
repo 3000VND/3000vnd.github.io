@@ -25,18 +25,18 @@
   },
   {
     "id": 4,
-    "title": "Sample Artwork #4",
+    "title": "Sample Character #4",
     "category": "character",
     "type": "image",
-    "src": "https://via.placeholder.com/400x300",
-    "alt": "Character Artwork 2"
+    "src": "assets/character/Character1.avif",
+    "alt": "Daweed Dance"
   },
   {
     "id": 5,
     "title": "Sample Animation #5",
     "category": "animation",
     "type": "video",
-    "src": "assets/animation/Animation1",
+    "src": "assets/animation/Animation1.mp4",
     "alt": "Khuuch Run Cycle"
   },
   {
