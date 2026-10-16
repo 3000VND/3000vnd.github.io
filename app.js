@@ -24,13 +24,14 @@ const getItems = () =>
 const isVideo = item =>
   item.type === 'video' || /\.(mp4|webm|mov)$/i.test(item.src || '');
 
-const renderMedia = (item, isLightbox = false) => {
+const renderMedia = (item, isLightbox = false, isFirstVisible = false) => {
   if (isVideo(item)) {
     return isLightbox
       ? `<video src="${item.src}" controls autoplay loop playsinline></video>`
       : `<video src="${item.src}" poster="${item.poster || ''}" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause()"></video><span class="video-badge">▶ Video</span>`;
   }
-  return `<img src="${item.src}" alt="${item.alt || item.title}" ${isLightbox ? '' : 'loading="lazy"'}>`;
+  const priority = isFirstVisible ? 'fetchpriority="high"' : 'loading="lazy"';
+  return `<img src="${item.src}" alt="${item.alt || item.title}" ${isLightbox ? '' : priority}>`;
 };
 
 // --- 2. Portfolio Module ---
@@ -55,7 +56,7 @@ const Portfolio = {
 
     grid.innerHTML = items.map((item, idx) => `
       <div class="portfolio-item ${item.category} ${state.category === 'all' && idx >= limit && !state.expanded ? 'hidden-item' : ''}" data-index="${idx}">
-        ${renderMedia(item)}
+        ${renderMedia(item, false, idx === 0)}
         <div class="portfolio-caption">${item.title}</div>
       </div>
     `).join('');
@@ -193,7 +194,11 @@ const Lightbox = {
     $$('.lightbox-thumb', this.filmstrip).forEach((t, i) => {
       const active = i === state.index;
       t.classList.toggle('active', active);
-      if (active) t.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+      if (active) {
+        requestAnimationFrame(() => {
+          t.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+        });
+      }
     });
   }
 };
