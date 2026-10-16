@@ -12,16 +12,16 @@
     "title": "Sample Artwork #2",
     "category": "visdev",
     "type": "image",
-    "src": "https://via.placeholder.com/400x300",
-    "alt": "Visdev Artwork 1"
+    "src": "assets/visdev/VisDev2.avif",
+    "alt": "Key Visual 1"
   },
   {
     "id": 3,
     "title": "Sample Artwork #3",
-    "category": "animation",
+    "category": "visdev",
     "type": "image",
-    "src": "https://via.placeholder.com/400x300",
-    "alt": "Animation Artwork 1"
+    "src": "assets/visdev/VisDev3.avif",
+    "alt": "Key Visual 2"
   },
   {
     "id": 4,
