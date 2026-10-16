@@ -36,7 +36,7 @@
     "title": "Sample Animation #5",
     "category": "animation",
     "type": "video",
-    "src": "assets/animation/Animation1.mp4",
+    "src": "assets/animation/Animation1.mp4#t=0.001",
     "alt": "Khuuch Run Cycle"
   },
   {
