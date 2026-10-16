@@ -4,11 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>3000VND — Portfolio & Commissions</title>
+  <meta name="description" content="Portfolio and commissions for 3000VND — Artist & Animator specializing in visual development, character art, and 2D animation.">
+  <meta name="theme-color" content="#fcf9f2">
+
+  <!-- Social Media Previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="3000VND — Portfolio & Commissions">
+  <meta property="og:description" content="Artist & Animator specializing in visual development, character art, and 2D animation.">
+  <meta property="og:image" content="assets/favicon.avif">
+  <meta name="twitter:card" content="summary">
+
   <link rel="icon" type="image/avif" href="assets/favicon.avif">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="app.js" defer></script>
 </head>
 <body>
 
@@ -35,12 +46,12 @@
       </header>
 
       <div class="social-links">
-        <a href="https://twitter.com/3000VND" target="_blank" rel="noopener">X (Twitter)</a>
-        <a href="https://bsky.app/profile/3000vnd.bsky.social" target="_blank" rel="noopener">Bluesky</a>
-        <a href="https://instagram.com/3000VND" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://youtube.com/3000VND" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://tiktok.com/3000VND" target="_blank" rel="noopener">TikTok</a>
-        <a href="https://ko-fi.com/3000VND" target="_blank" rel="noopener">Ko-fi</a>
+        <a href="https://twitter.com/3000VND" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+        <a href="https://bsky.app/profile/3000vnd.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky</a>
+        <a href="https://instagram.com/3000VND" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://youtube.com/3000VND" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a href="https://tiktok.com/3000VND" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a href="https://ko-fi.com/3000VND" target="_blank" rel="noopener noreferrer">Ko-fi</a>
       </div>
 
       <div class="about-card">
@@ -49,25 +60,25 @@
       </div>
     </section>
 
-    <!-- 2. PORTFOLIO GRID SECTION (Dynamically populated via JSON) -->
+    <!-- 2. PORTFOLIO GRID SECTION (Populated by app.js from portfolio.json) -->
     <section id="portfolio" class="section">
       <h2 class="section-title">Works</h2>
 
-      <!-- Portfolio Category Filter Tabs -->
+      <!-- Category Filter Tabs -->
       <div class="portfolio-tabs">
-        <button class="tab-btn active" onclick="filterPortfolio('all')">All</button>
-        <button class="tab-btn" onclick="filterPortfolio('character')">Character</button>
-        <button class="tab-btn" onclick="filterPortfolio('visdev')">Visdev</button>
-        <button class="tab-btn" onclick="filterPortfolio('animation')">Animation</button>
-        <button class="tab-btn" onclick="filterPortfolio('sketch')">Sketch</button>
+        <button class="tab-btn active" data-category="all">All</button>
+        <button class="tab-btn" data-category="character">Character</button>
+        <button class="tab-btn" data-category="visdev">Visdev</button>
+        <button class="tab-btn" data-category="animation">Animation</button>
+        <button class="tab-btn" data-category="sketch">Sketch</button>
       </div>
 
-      <!-- Grid injected by script below -->
+      <!-- Injected Gallery Grid -->
       <div class="portfolio-grid" id="portfolio-grid"></div>
 
-      <!-- Show More Button -->
+      <!-- Expand / Collapse Button -->
       <div class="show-more-container">
-        <button id="show-more-btn" onclick="togglePortfolio()">Show More Works ↓</button>
+        <button id="show-more-btn">Show More Works ↓</button>
       </div>
     </section>
 
@@ -76,8 +87,7 @@
       <h2 class="section-title">Commission & Extras</h2>
       <p class="section-subtitle">Open slots · Booked first-come, first-served.</p>
 
-      <!-- Commission Queue Card -->
-      <a href="https://trello.com/b/ElXlCWha/3ks-commisions" target="_blank" rel="noopener" class="card">
+      <a href="https://trello.com/b/ElXlCWha/3ks-commisions" target="_blank" rel="noopener noreferrer" class="card">
         <div class="card-header">
           <h3>Commission Queue</h3>
           <span class="price">View →</span>
@@ -85,23 +95,23 @@
         <p>Check active slots and current progress on Trello.</p>
       </a>
       
-      <a href="#" class="card">
+      <div class="card">
         <div class="card-header">
-          <h3>Placeholder</h3>
-          <span class="price">$3000</span>
+          <h3>Character & Illustration</h3>
+          <span class="price">From $150</span>
         </div>
-        <p>Placeholder</p>
-      </a>
+        <p>Portraits, full-body character art, and visual development concepts.</p>
+      </div>
 
-      <a href="#" class="card">
+      <div class="card">
         <div class="card-header">
-          <h3>Placeholder</h3>
-          <span class="price">$3000</span>
+          <h3>Short Animation / Loops</h3>
+          <span class="price">Custom Quote</span>
         </div>
-        <p>Placeholder</p>
-      </a>
+        <p>Animated character loops, music video cuts, and 2D FX.</p>
+      </div>
 
-      <a href="https://3000vnd.gumroad.com/l/ommtbu" target="_blank" rel="noopener" class="card">
+      <a href="https://3000vnd.gumroad.com/l/ommtbu" target="_blank" rel="noopener noreferrer" class="card">
         <div class="card-header">
           <h3>3K's Brushes / Free Resources</h3>
           <span class="price">Free</span>
@@ -110,7 +120,9 @@
       </a>
 
       <div class="footer-note">
-        Questions or custom requests? Email me at <a href="mailto:helomoto97@yahoo.com.vn">helomoto97@yahoo.com.vn</a>
+        Questions or custom requests? Email me at 
+        <a href="mailto:helomoto97@yahoo.com.vn">helomoto97@yahoo.com.vn</a>
+        <button class="copy-email-btn" onclick="copyEmail(this)" aria-label="Copy email address">Copy</button>
       </div>
     </section>
 
@@ -120,207 +132,25 @@
     <p>© 3000VND. All rights reserved.</p>
   </footer>
 
-  <!-- Microsoft Photos Style Lightbox Modal -->
-  <div id="lightbox" class="photos-lightbox" onclick="handleBackdropClick(event)">
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="photos-lightbox" role="dialog" aria-modal="true" aria-label="Artwork preview modal">
     
-    <!-- Top Bar: Title & Close -->
     <div class="lightbox-header">
       <div id="lightbox-title" class="lightbox-title-text">Artwork Title</div>
-      <button class="lightbox-close-btn" onclick="closeLightbox()">&times;</button>
+      <button class="lightbox-close-btn" aria-label="Close preview">&times;</button>
     </div>
 
-    <!-- Center Area: Nav Arrows & Main Media -->
     <div class="lightbox-body">
-      <button class="lightbox-nav-btn prev-btn" onclick="navigateLightbox(-1)">&#10094;</button>
-      
-      <div class="lightbox-main-container">
-        <img id="lightbox-img" src="" alt="Full Resolution Artwork" onclick="event.stopPropagation()">
-      </div>
-
-      <button class="lightbox-nav-btn next-btn" onclick="navigateLightbox(1)">&#10095;</button>
+      <button class="lightbox-nav-btn prev-btn" aria-label="Previous artwork">&#10094;</button>
+      <div id="lightbox-main-container" class="lightbox-main-container"></div>
+      <button class="lightbox-nav-btn next-btn" aria-label="Next artwork">&#10095;</button>
     </div>
 
-    <!-- Bottom Area: Horizontal Scrollable Filmstrip Thumbnail Strip -->
-    <div class="lightbox-filmstrip-container" onclick="event.stopPropagation()">
-      <div id="lightbox-filmstrip" class="lightbox-filmstrip"></div>
+    <div class="lightbox-filmstrip-container">
+      <div id="lightbox-filmstrip" class="lightbox-filmstrip" role="region" aria-label="Artwork thumbnails"></div>
     </div>
 
   </div>
-
-  <!-- Modular JSON-Driven Portfolio Engine & Lightbox Controller -->
-  <script>
-    let portfolioData = [];
-    let currentCategory = 'all';
-    let isExpanded = false;
-    let currentLightboxIndex = 0;
-    let isLightboxOpen = false;
-
-    async function loadPortfolio() {
-      try {
-        const response = await fetch('portfolio.json');
-        portfolioData = await response.json();
-        renderPortfolio();
-      } catch (error) {
-        console.error('Failed to load portfolio data:', error);
-      }
-    }
-
-    function renderPortfolio() {
-      const grid = document.getElementById('portfolio-grid');
-      grid.innerHTML = '';
-
-      portfolioData.forEach((item, index) => {
-        if (currentCategory !== 'all' && item.category !== currentCategory) {
-          return;
-        }
-
-        let isHidden = false;
-        if (currentCategory === 'all') {
-          const isMobile = window.innerWidth <= 768;
-          const limit = isMobile ? 3 : 5;
-          if (index >= limit && !isExpanded) {
-            isHidden = true;
-          }
-        }
-
-        const card = document.createElement('div');
-        card.className = `portfolio-item ${item.category}`;
-        if (isHidden) card.classList.add('hidden-item');
-
-        card.innerHTML = `
-          <img src="${item.src}" alt="${item.alt}" loading="lazy">
-          <div class="portfolio-caption">${item.title}</div>
-        `;
-
-        // Click card to open lightbox
-        card.addEventListener('click', () => {
-          openLightbox(index);
-        });
-
-        grid.appendChild(card);
-      });
-
-      const btn = document.getElementById('show-more-btn');
-      if (currentCategory === 'all') {
-        btn.style.display = 'inline-block';
-        btn.innerText = isExpanded ? 'Show Less ↑' : 'Show More Works ↓';
-      } else {
-        btn.style.display = 'none';
-      }
-    }
-
-    // Lightbox Control Functions with History API Integration (Mobile Back/Swipe Support)
-    function openLightbox(index) {
-      currentLightboxIndex = index;
-      isLightboxOpen = true;
-      document.getElementById('lightbox').style.display = 'flex';
-      
-      history.pushState({ lightbox: true }, '');
-
-      updateLightboxContent();
-      renderFilmstrip();
-    }
-
-    function closeLightbox(isFromPopState = false) {
-      if (!isLightboxOpen) return;
-      isLightboxOpen = false;
-      
-      document.getElementById('lightbox').style.display = 'none';
-
-      if (!isFromPopState) {
-        window.history.back();
-      }
-    }
-
-    function handleBackdropClick(event) {
-      if (event.target.id === 'lightbox') {
-        closeLightbox();
-      }
-    }
-
-    window.addEventListener('popstate', (event) => {
-      if (isLightboxOpen) {
-        closeLightbox(true);
-      }
-    });
-
-    function navigateLightbox(direction) {
-      currentLightboxIndex += direction;
-      if (currentLightboxIndex < 0) {
-        currentLightboxIndex = portfolioData.length - 1;
-      } else if (currentLightboxIndex >= portfolioData.length) {
-        currentLightboxIndex = 0;
-      }
-      updateLightboxContent();
-      updateActiveThumbnail();
-    }
-
-    function updateLightboxContent() {
-      const item = portfolioData[currentLightboxIndex];
-      document.getElementById('lightbox-img').src = item.src;
-      document.getElementById('lightbox-title').innerText = item.title;
-    }
-
-    function renderFilmstrip() {
-      const filmstrip = document.getElementById('lightbox-filmstrip');
-      filmstrip.innerHTML = '';
-
-      portfolioData.forEach((item, index) => {
-        const thumb = document.createElement('div');
-        thumb.className = `lightbox-thumb ${index === currentLightboxIndex ? 'active' : ''}`;
-        thumb.innerHTML = `<img src="${item.src}" alt="${item.alt}">`;
-        
-        thumb.addEventListener('click', () => {
-          currentLightboxIndex = index;
-          updateLightboxContent();
-          updateActiveThumbnail();
-        });
-
-        filmstrip.appendChild(thumb);
-      });
-    }
-
-    function updateActiveThumbnail() {
-      const thumbs = document.querySelectorAll('.lightbox-thumb');
-      thumbs.forEach((thumb, index) => {
-        if (index === currentLightboxIndex) {
-          thumb.classList.add('active');
-          thumb.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
-        } else {
-          thumb.classList.remove('active');
-        }
-      });
-    }
-
-    // Desktop keyboard controls
-    document.addEventListener('keydown', (e) => {
-      if (isLightboxOpen) {
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft') navigateLightbox(-1);
-        if (e.key === 'ArrowRight') navigateLightbox(1);
-      }
-    });
-
-    function togglePortfolio() {
-      isExpanded = !isExpanded;
-      renderPortfolio();
-    }
-
-    function filterPortfolio(category) {
-      const tabs = document.querySelectorAll('.tab-btn');
-      tabs.forEach(tab => tab.classList.remove('active'));
-      event.target.classList.add('active');
-
-      currentCategory = category;
-      isExpanded = category !== 'all'; 
-      renderPortfolio();
-    }
-
-    document.addEventListener('DOMContentLoaded', loadPortfolio);
-    window.addEventListener('resize', () => {
-      if (currentCategory === 'all') renderPortfolio();
-    });
-  </script>
 
 </body>
 </html>
