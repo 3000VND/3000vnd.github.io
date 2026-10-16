@@ -520,10 +520,13 @@ footer {
   transition: all 0.2s ease;
 }
 
-.lightbox-thumb img {
+/* --- FIXED: Styled both img and video tags in the filmstrip --- */
+.lightbox-thumb img,
+.lightbox-thumb video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .lightbox-thumb:hover {
@@ -565,3 +568,4 @@ footer {
     padding: 0 5px;
   }
 }
+```[cite: 8]
