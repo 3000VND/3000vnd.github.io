@@ -199,12 +199,35 @@ const Lightbox = {
 };
 
 // --- 4. Utilities & Bootstrap ---
-function copyEmail(btn) {
-  navigator.clipboard.writeText('helomoto97@yahoo.com.vn').then(() => {
-    const orig = btn.textContent;
-    btn.textContent = 'Copied!';
-    setTimeout(() => { btn.textContent = orig; }, 2000);
+function setupEmailCopy() {
+  const emailLink = $('#email-link');
+  if (!emailLink) return;
+
+  emailLink.addEventListener('click', e => {
+    e.preventDefault();
+    const email = emailLink.textContent.trim();
+    navigator.clipboard.writeText(email).then(() => {
+      showCopyToast(e.clientX, e.clientY);
+    });
   });
+}
+
+function showCopyToast(x, y) {
+  document.querySelectorAll('.copy-toast').forEach(t => t.remove());
+
+  const toast = document.createElement('div');
+  toast.className = 'copy-toast';
+  toast.textContent = 'Copied!';
+  toast.style.left = `${x}px`;
+  toast.style.top = `${y}px`;
+  document.body.appendChild(toast);
+
+  requestAnimationFrame(() => toast.classList.add('show'));
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 250);
+  }, 1000);
 }
 
 let resizeTimer;
@@ -216,4 +239,5 @@ window.addEventListener('resize', () => {
 document.addEventListener('DOMContentLoaded', () => {
   Portfolio.init();
   Lightbox.init();
+  setupEmailCopy();
 });

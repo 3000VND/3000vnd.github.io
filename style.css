@@ -361,6 +361,29 @@ h1 {
 .footer-note a {
   color: var(--text-main);
   font-weight: 600;
+  cursor: pointer;
+}
+
+/* Floating Cursor Toast for Copy Email */
+.copy-toast {
+  position: fixed;
+  z-index: 9999;
+  background: var(--text-main);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 6px;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  transform: translate(-50%, -100%) translateY(4px);
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.copy-toast.show {
+  opacity: 1;
+  transform: translate(-50%, -100%) translateY(-10px);
 }
 
 footer {
