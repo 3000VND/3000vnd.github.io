@@ -4,16 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>3000VND — Portfolio & Commissions</title>
-  <meta name="description" content="Portfolio and commissions for 3000VND — Artist & Animator specializing in visual development, character art, and 2D animation.">
-  <meta name="theme-color" content="#fcf9f2">
-
-  <!-- Social Media Previews -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="3000VND — Portfolio & Commissions">
-  <meta property="og:description" content="Artist & Animator specializing in visual development, character art, and 2D animation.">
-  <meta property="og:image" content="assets/favicon.avif">
-  <meta name="twitter:card" content="summary">
-
   <link rel="icon" type="image/avif" href="assets/favicon.avif">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,12 +36,12 @@
       </header>
 
       <div class="social-links">
-        <a href="https://twitter.com/3000VND" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
-        <a href="https://bsky.app/profile/3000vnd.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky</a>
-        <a href="https://instagram.com/3000VND" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="https://youtube.com/3000VND" target="_blank" rel="noopener noreferrer">YouTube</a>
-        <a href="https://tiktok.com/3000VND" target="_blank" rel="noopener noreferrer">TikTok</a>
-        <a href="https://ko-fi.com/3000VND" target="_blank" rel="noopener noreferrer">Ko-fi</a>
+        <a href="https://twitter.com/3000VND" target="_blank" rel="noopener">X (Twitter)</a>
+        <a href="https://bsky.app/profile/3000vnd.bsky.social" target="_blank" rel="noopener">Bluesky</a>
+        <a href="https://instagram.com/3000VND" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://youtube.com/3000VND" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://tiktok.com/3000VND" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://ko-fi.com/3000VND" target="_blank" rel="noopener">Ko-fi</a>
       </div>
 
       <div class="about-card">
@@ -60,11 +50,11 @@
       </div>
     </section>
 
-    <!-- 2. PORTFOLIO GRID SECTION (Populated by app.js from portfolio.json) -->
+    <!-- 2. PORTFOLIO GRID SECTION (Dynamically populated via JSON) -->
     <section id="portfolio" class="section">
       <h2 class="section-title">Works</h2>
 
-      <!-- Category Filter Tabs -->
+      <!-- Portfolio Category Filter Tabs -->
       <div class="portfolio-tabs">
         <button class="tab-btn active" data-category="all">All</button>
         <button class="tab-btn" data-category="character">Character</button>
@@ -73,10 +63,10 @@
         <button class="tab-btn" data-category="sketch">Sketch</button>
       </div>
 
-      <!-- Injected Gallery Grid -->
+      <!-- Grid injected by script below -->
       <div class="portfolio-grid" id="portfolio-grid"></div>
 
-      <!-- Expand / Collapse Button -->
+      <!-- Show More Button -->
       <div class="show-more-container">
         <button id="show-more-btn">Show More Works ↓</button>
       </div>
@@ -87,7 +77,8 @@
       <h2 class="section-title">Commission & Extras</h2>
       <p class="section-subtitle">Open slots · Booked first-come, first-served.</p>
 
-      <a href="https://trello.com/b/ElXlCWha/3ks-commisions" target="_blank" rel="noopener noreferrer" class="card">
+      <!-- Commission Queue Card -->
+      <a href="https://trello.com/b/ElXlCWha/3ks-commisions" target="_blank" rel="noopener" class="card">
         <div class="card-header">
           <h3>Commission Queue</h3>
           <span class="price">View →</span>
@@ -95,23 +86,23 @@
         <p>Check active slots and current progress on Trello.</p>
       </a>
       
-      <div class="card">
+      <a href="#" class="card">
         <div class="card-header">
-          <h3>Character & Illustration</h3>
-          <span class="price">From $150</span>
+          <h3>Placeholder</h3>
+          <span class="price">$3000</span>
         </div>
-        <p>Portraits, full-body character art, and visual development concepts.</p>
-      </div>
+        <p>Placeholder</p>
+      </a>
 
-      <div class="card">
+      <a href="#" class="card">
         <div class="card-header">
-          <h3>Short Animation / Loops</h3>
-          <span class="price">Custom Quote</span>
+          <h3>Placeholder</h3>
+          <span class="price">$3000</span>
         </div>
-        <p>Animated character loops, music video cuts, and 2D FX.</p>
-      </div>
+        <p>Placeholder</p>
+      </a>
 
-      <a href="https://3000vnd.gumroad.com/l/ommtbu" target="_blank" rel="noopener noreferrer" class="card">
+      <a href="https://3000vnd.gumroad.com/l/ommtbu" target="_blank" rel="noopener" class="card">
         <div class="card-header">
           <h3>3K's Brushes / Free Resources</h3>
           <span class="price">Free</span>
@@ -120,9 +111,7 @@
       </a>
 
       <div class="footer-note">
-        Questions or custom requests? Email me at 
-        <a href="mailto:helomoto97@yahoo.com.vn">helomoto97@yahoo.com.vn</a>
-        <button class="copy-email-btn" onclick="copyEmail(this)" aria-label="Copy email address">Copy</button>
+        Questions or custom requests? Email me at <a href="mailto:helomoto97@yahoo.com.vn">helomoto97@yahoo.com.vn</a>
       </div>
     </section>
 
@@ -132,22 +121,27 @@
     <p>© 3000VND. All rights reserved.</p>
   </footer>
 
-  <!-- Lightbox Modal -->
-  <div id="lightbox" class="photos-lightbox" role="dialog" aria-modal="true" aria-label="Artwork preview modal">
+  <!-- Microsoft Photos Style Lightbox Modal -->
+  <div id="lightbox" class="photos-lightbox">
     
+    <!-- Top Bar: Title & Close -->
     <div class="lightbox-header">
       <div id="lightbox-title" class="lightbox-title-text">Artwork Title</div>
-      <button class="lightbox-close-btn" aria-label="Close preview">&times;</button>
+      <button class="lightbox-close-btn">&times;</button>
     </div>
 
+    <!-- Center Area: Nav Arrows & Main Media -->
     <div class="lightbox-body">
-      <button class="lightbox-nav-btn prev-btn" aria-label="Previous artwork">&#10094;</button>
+      <button class="lightbox-nav-btn prev-btn">&#10094;</button>
+      
       <div id="lightbox-main-container" class="lightbox-main-container"></div>
-      <button class="lightbox-nav-btn next-btn" aria-label="Next artwork">&#10095;</button>
+
+      <button class="lightbox-nav-btn next-btn">&#10095;</button>
     </div>
 
+    <!-- Bottom Area: Horizontal Scrollable Filmstrip Thumbnail Strip -->
     <div class="lightbox-filmstrip-container">
-      <div id="lightbox-filmstrip" class="lightbox-filmstrip" role="region" aria-label="Artwork thumbnails"></div>
+      <div id="lightbox-filmstrip" class="lightbox-filmstrip"></div>
     </div>
 
   </div>
