@@ -33,11 +33,11 @@
   },
   {
     "id": 5,
-    "title": "Sample Artwork #5",
-    "category": "sketch",
-    "type": "image",
-    "src": "https://via.placeholder.com/400x300",
-    "alt": "Sketch Artwork 1"
+    "title": "Sample Animation #5",
+    "category": "animation",
+    "type": "video",
+    "src": "assets/animation/Animation1",
+    "alt": "Khuuch Run Cycle"
   },
   {
     "id": 6,
