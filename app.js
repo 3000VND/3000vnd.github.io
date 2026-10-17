@@ -1,6 +1,6 @@
 /**
  * 3000VND — Modular Portfolio & Lightbox Engine
- * very minimal, much modular, easy maintenance.
+ * Very minimal, much modular, breezy maintenance.
  */
 
 // --- 1. State & DOM Utilities ---
