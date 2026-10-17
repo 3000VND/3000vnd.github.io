@@ -256,12 +256,12 @@ h1 {
   margin-bottom:  46px;
 }
 
-.portfolio-entry:hover .portfolio-caption {
+.portfolio-entry.is-expanded .portfolio-caption {
   height:  46px;
   transition: height 0.3s ease 0s;
 }
 
-.portfolio-entry:hover .portfolio-title {
+.portfolio-entry.is-expanded .portfolio-title {
   opacity: 1;
   transition: opacity 0.2s ease 0s;
 }
