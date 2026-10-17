@@ -101,7 +101,7 @@ const Portfolio = {
             candidate.classList.toggle("is-expanded", isActive);
             candidate.classList.toggle("is-pushed", !isActive && isBelow);
           });
-          grid.classList.toggle("is-pushing", entries.some(candidate => candidate.classList.contains("is-pushed")));
+          grid.classList.add("is-pushing");
         });
         entry.addEventListener("pointerleave", event => {
           if (event.pointerType === "touch" || grid._activeEntry !== entry) return;

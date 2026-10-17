@@ -226,7 +226,7 @@ h1 {
 }
 
 .portfolio-grid.is-pushing {
-  padding-bottom: 46px;
+  padding-bottom: 44px;
 }
 
 .portfolio-entry {
@@ -258,12 +258,12 @@ h1 {
 }
 
 .portfolio-entry.is-pushed {
-  transform: translateY(46px);
+  transform: translateY(44px);
   transition: transform 0.3s ease;
 }
 
 .portfolio-entry.is-pushed:hover {
-  transform: translateY(43px);
+  transform: translateY(41px);
 }
 
 .portfolio-entry.is-expanded {
@@ -271,7 +271,7 @@ h1 {
 }
 
 .portfolio-entry.is-expanded .portfolio-caption {
-  height: 46px;
+  height: 44px;
 }
 
 .portfolio-entry.is-expanded .portfolio-title {
@@ -324,7 +324,7 @@ h1 {
   justify-content: center;
   box-sizing: border-box;
   width: 100%;
-  height:  46px;
+  height:  44px;
   padding: 6px 12px;
   color: var(--text-main);
   font-size: 0.9rem;
@@ -636,6 +636,7 @@ footer {
   }
 
   .portfolio-title {
+    height: 46px;
     opacity: 1;
     transition: none;
   }
