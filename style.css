@@ -234,9 +234,7 @@ h1 {
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   cursor: pointer;
-  transform: translateY(0);
-  translate: 0 0;
-  transition: transform 0.3s ease, translate 0.2s ease, border-color 0.2s ease;
+  transition: translate 0.2s ease, border-color 0.2s ease;
 }
 
 .portfolio-item {
@@ -604,12 +602,10 @@ footer {
 /* RESPONSIVE MEDIA QUERY FOR PHONES (Max-width: 768px) */
 @media (max-width: 768px) {
   .portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  align-items: start;
-  transition: none;
-}
+    grid-template-columns: 1fr;
+    padding-bottom: 0;
+    transition: none;
+  }
 
 
   .portfolio-entry {
