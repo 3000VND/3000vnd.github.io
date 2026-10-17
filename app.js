@@ -69,6 +69,7 @@ const Portfolio = {
     this.previewVisibility.clear();
     const items = getItems();
     const limit = window.innerWidth <= 768 ? 3 : 5;
+    const mobileMode = window.matchMedia("(max-width: 768px)").matches;
 
     grid.innerHTML = items.map((item, idx) => `
       <div class="portfolio-entry ${state.category === 'all' && idx >= limit && !state.expanded ? 'hidden-item' : ''}" data-index="${idx}">
@@ -81,6 +82,24 @@ const Portfolio = {
       </div>
     `).join('');
 
+    if (!mobileMode) {
+      $$(".portfolio-entry", grid).forEach(entry => {
+        entry.addEventListener("pointerenter", event => {
+          if (event.pointerType === "touch") return;
+          window.clearTimeout(entry._returnSpaceTimer);
+          entry.classList.remove("is-retaining-space");
+        });
+        entry.addEventListener("pointerleave", event => {
+          if (event.pointerType === "touch") return;
+          entry.classList.add("is-retaining-space");
+          window.clearTimeout(entry._returnSpaceTimer);
+          entry._returnSpaceTimer = window.setTimeout(() => {
+            entry.classList.remove("is-retaining-space");
+            entry._returnSpaceTimer = null;
+          }, 3000);
+        });
+      });
+    }
     const videos = $$(".portfolio-item video", grid);
     videos.forEach(video => {
       const card = video.closest(".portfolio-item");
@@ -89,7 +108,6 @@ const Portfolio = {
       video.addEventListener("pause", syncBadge);
       video.addEventListener("ended", syncBadge);
     });
-    const mobileMode = window.matchMedia("(max-width: 768px)").matches;
     if (mobileMode && videos.length && "IntersectionObserver" in window) {
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
