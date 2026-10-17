@@ -1,6 +1,6 @@
 /**
  * 3000VND — Modular Portfolio & Lightbox Engine
- * Goal: Minimal code, modular architecture, easy maintenance.
+ * very minimal, much modular, easy maintenance.
  */
 
 // --- 1. State & DOM Utilities ---
