@@ -2,40 +2,30 @@
   {
     "id": 1,
     "title": "Sample Visdev #1",
-    "category": "visdev",
-    "type": "image",
     "src": "assets/visdev/VisDev1.avif",
     "alt": "The Fool Party"
   },
   {
     "id": 2,
     "title": "Sample VisDev #2",
-    "category": "visdev",
-    "type": "image",
     "src": "assets/visdev/VisDev2.avif",
     "alt": "Morning Bath"
   },
   {
     "id": 3,
     "title": "Sample VisDev #3",
-    "category": "visdev",
-    "type": "image",
     "src": "assets/visdev/VisDev3.avif",
     "alt": "Key Visual 2"
   },
   {
     "id": 4,
     "title": "Sample Character #4",
-    "category": "character",
-    "type": "image",
     "src": "assets/character/Character1.avif",
-    "alt": "Daweed Disco"
+    "alt": "Daweed Dance"
   },
   {
     "id": 5,
     "title": "Sample Animation #5",
-    "category": "animation",
-    "type": "video",
     "src": "assets/animation/Animation1.mp4",
     "thumbnailTime": 2.4,
     "alt": "Khuuch Run Cycle"
@@ -44,7 +34,6 @@
     "id": 6,
     "title": "Sample Artwork #6",
     "category": "visdev",
-    "type": "image",
     "src": "https://via.placeholder.com/400x300",
     "alt": "Visdev Artwork 2"
   },
@@ -52,7 +41,6 @@
     "id": 7,
     "title": "Sample Artwork #7",
     "category": "animation",
-    "type": "image",
     "src": "https://via.placeholder.com/400x300",
     "alt": "Animation Artwork 2"
   },
@@ -60,24 +48,7 @@
     "id": 8,
     "title": "Sample Artwork #8",
     "category": "sketch",
-    "type": "image",
     "src": "https://via.placeholder.com/400x300",
     "alt": "Sketch Artwork 2"
-  },  
-  {
-    "id": 9,
-    "title": "Sample Artwork #9",
-    "category": "animation",
-    "type": "image",
-    "src": "https://via.placeholder.com/400x300",
-    "alt": "Animation Artwork 3"
-  },  
-  {
-    "id": 10,
-    "title": "Sample Artwork #10",
-    "category": "animation",
-    "type": "image",
-    "src": "https://via.placeholder.com/400x300",
-    "alt": "Animation Artwork 4"
   }
 ]

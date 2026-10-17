@@ -16,13 +16,16 @@ const state = {
   prevFocus: null
 };
 
+const getItemCategory = item =>
+  item.category || item.src?.match(/(?:^|\/)assets\/([^/]+)/i)?.[1]?.toLowerCase() || 'general';
+
 const getItems = () =>
   state.category === 'all'
     ? state.items
-    : state.items.filter(item => item.category === state.category);
+    : state.items.filter(item => getItemCategory(item) === state.category);
 
 const isVideo = item =>
-  item.type === 'video' || /\.(mp4|webm|mov)$/i.test(item.src || '');
+  /\.(mp4|webm)$/i.test(item.src || '');
 
 const renderMedia = (item, isLightbox = false, isFirstVisible = false) => {
   if (isVideo(item)) {
@@ -73,7 +76,7 @@ const Portfolio = {
 
     grid.innerHTML = items.map((item, idx) => `
       <div class="portfolio-entry ${state.category === 'all' && idx >= limit && !state.expanded ? 'hidden-item' : ''}" data-index="${idx}">
-        <div class="portfolio-item ${item.category}">
+        <div class="portfolio-item ${getItemCategory(item)}">
           ${renderMedia(item, false, idx === 0)}
         </div>
         <div class="portfolio-caption">
