@@ -270,7 +270,7 @@ h1 {
   content: "▶︎";
   font-size: 0.65rem;
   line-height: 1;
-  transform: translate(1px, -0.5px);
+  transform: translateX(1px);
 }
 
 /* Hover-Reveal Caption Overlay */
