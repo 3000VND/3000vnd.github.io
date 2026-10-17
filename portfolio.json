@@ -63,5 +63,21 @@
     "type": "image",
     "src": "https://via.placeholder.com/400x300",
     "alt": "Sketch Artwork 2"
+  },  
+  {
+    "id": 9,
+    "title": "Sample Artwork #9",
+    "category": "animation",
+    "type": "image",
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Animation Artwork 3"
+  },  
+  {
+    "id": 10,
+    "title": "Sample Artwork #10",
+    "category": "animation",
+    "type": "image",
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Animation Artwork 4"
   }
 ]
