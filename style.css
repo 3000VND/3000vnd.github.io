@@ -236,8 +236,9 @@ h1 {
   background: var(--card-bg);
   border: 0;
   border-radius: var(--radius);
+  clip-path: inset(0 0 0 0 round var(--radius));
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, clip-path 0.3s ease;
 }
 
 .portfolio-entry::after {
@@ -255,15 +256,8 @@ h1 {
   position: relative;
   overflow: hidden;
   background: var(--card-bg);
-  border-radius: var(--radius) var(--radius) 0 0;
+  border-radius: 0;
   cursor: pointer;
-  transition: border-radius 0.3s ease;
-}
-
-@media (min-width: 769px) {
-  .portfolio-entry:not(.is-expanded) .portfolio-item {
-    border-radius: var(--radius);
-  }
 }
 
 .portfolio-entry.hidden-item {
@@ -289,6 +283,7 @@ h1 {
 
 .portfolio-entry.is-expanded {
   z-index: 3;
+  clip-path: inset(0 0 -44px 0 round var(--radius));
 }
 
 .portfolio-entry.is-expanded::after {
@@ -654,10 +649,6 @@ footer {
     display: none;
   }
 
-  /* Keep the title panel attached to the artwork card on mobile. */
-  .portfolio-item {
-    border-radius: var(--radius) var(--radius) 0 0;
-  }
 
   .portfolio-title {
     height: 46px;
