@@ -221,25 +221,24 @@ h1 {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
+  align-items: start;
 }
 
 .portfolio-entry {
   position: relative;
   min-width: 0;
-  overflow: hidden;
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
   cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .portfolio-item {
   position: relative;
   overflow: hidden;
   background: var(--card-bg);
-  border-radius: var(--radius) var(--radius) 0 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
   cursor: pointer;
+  transition: border-color 0.2s ease;
 }
 
 .portfolio-entry.hidden-item {
@@ -248,12 +247,16 @@ h1 {
 
 .portfolio-entry:hover {
   transform: translateY(-3px);
+}
+
+.portfolio-entry:hover .portfolio-item {
   border-color: var(--accent);
 }
 
 .portfolio-entry:hover .portfolio-caption {
   height: 48px;
-  transition: height 0.3s ease 0s;
+  box-shadow: 0 0 0 1px var(--border-color);
+  transition: height 0.3s ease 0s, box-shadow 0.2s ease 0s;
 }
 
 .portfolio-entry:hover .portfolio-title {
@@ -322,12 +325,13 @@ h1 {
   margin-top: 0;
   overflow: hidden;
   background: var(--card-bg);
-  transition: height 0.3s ease 3s;
+  border-radius: 0 0 var(--radius) var(--radius);
+  transition: height 0.3s ease 3s, box-shadow 0.2s ease 3s;
 }
 /* Show More Button */
 .show-more-container {
   text-align: center;
-  margin-top: 26px;
+  margin-top: 24px
 }
 
 #show-more-btn {
@@ -602,6 +606,7 @@ footer {
   .portfolio-caption {
     height: 48px;
     margin-top: 0;
+    box-shadow: 0 0 0 1px var(--border-color);
     transition: none;
   }
 
