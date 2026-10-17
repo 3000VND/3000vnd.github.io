@@ -71,8 +71,10 @@ const Portfolio = {
     const limit = window.innerWidth <= 768 ? 3 : 5;
 
     grid.innerHTML = items.map((item, idx) => `
-      <div class="portfolio-item ${item.category} ${state.category === 'all' && idx >= limit && !state.expanded ? 'hidden-item' : ''}" data-index="${idx}">
-        ${renderMedia(item, false, idx === 0)}
+      <div class="portfolio-entry ${state.category === 'all' && idx >= limit && !state.expanded ? 'hidden-item' : ''}" data-index="${idx}">
+        <div class="portfolio-item ${item.category}">
+          ${renderMedia(item, false, idx === 0)}
+        </div>
         <div class="portfolio-caption">${item.title}</div>
       </div>
     `).join('');
@@ -92,7 +94,7 @@ const Portfolio = {
     } else if (!mobileMode) {
       // Keep desktop playback active while the pointer moves over the caption.
       videos.forEach(video => {
-        const card = video.closest(".portfolio-item");
+        const card = video.closest(".portfolio-entry");
         card.addEventListener("pointerenter", event => {
           if (event.pointerType !== "touch") video.play().catch(() => {});
         });
@@ -141,10 +143,10 @@ const Portfolio = {
     });
 
     $('#portfolio-grid')?.addEventListener('click', e => {
-      const card = e.target.closest('.portfolio-item');
-      if (card?.dataset.index != null) {
-        $("video", card)?.pause();
-        Lightbox.open(Number(card.dataset.index));
+      const entry = e.target.closest('.portfolio-entry');
+      if (entry?.dataset.index != null) {
+        $("video", entry)?.pause();
+        Lightbox.open(Number(entry.dataset.index));
       }
     });
 
