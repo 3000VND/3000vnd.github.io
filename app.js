@@ -28,10 +28,21 @@ const renderMedia = (item, isLightbox = false, isFirstVisible = false) => {
   if (isVideo(item)) {
     return isLightbox
       ? `<video src="${item.src}" controls autoplay loop playsinline></video>`
-      : `<video src="${item.src}" poster="${item.poster || ''}" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause()"></video><span class="video-badge">▶ Video</span>`;
+      : `<video src="${item.src}" poster="${item.poster || ''}" muted loop playsinline preload="metadata"></video><span class="video-badge" role="img" aria-label="Video">▶︎</span>`;
   }
   const priority = isFirstVisible ? 'fetchpriority="high"' : 'loading="lazy"';
   return `<img src="${item.src}" alt="${item.alt || item.title}" ${isLightbox ? '' : priority}>`;
+};
+
+const renderFilmstripMedia = item => {
+  if (isVideo(item)) {
+    const requestedTime = Number(item.thumbnailTime);
+    const thumbnailTime = Number.isFinite(requestedTime) && requestedTime >= 0
+      ? requestedTime
+      : 1;
+    return `<video data-src="${item.src}" data-time="${thumbnailTime}" muted playsinline preload="none" aria-hidden="true"></video>`;
+  }
+  return `<img src="${item.src}" alt="${item.alt || item.title}" loading="lazy">`;
 };
 
 // --- 2. Portfolio Module ---
@@ -61,6 +72,16 @@ const Portfolio = {
       </div>
     `).join('');
 
+    // Keep preview playback active while the pointer moves over the caption.
+    $$(".portfolio-item video", grid).forEach(video => {
+      const card = video.closest(".portfolio-item");
+      card.addEventListener("pointerenter", event => {
+        if (event.pointerType !== "touch") video.play().catch(() => {});
+      });
+      card.addEventListener("pointerleave", event => {
+        if (event.pointerType !== "touch") video.pause();
+      });
+    });
     const btn = $('#show-more-btn');
     if (btn) {
       btn.style.display = state.category === 'all' && items.length > limit ? 'inline-block' : 'none';
@@ -80,7 +101,10 @@ const Portfolio = {
 
     $('#portfolio-grid')?.addEventListener('click', e => {
       const card = e.target.closest('.portfolio-item');
-      if (card?.dataset.index != null) Lightbox.open(Number(card.dataset.index));
+      if (card?.dataset.index != null) {
+        $("video", card)?.pause();
+        Lightbox.open(Number(card.dataset.index));
+      }
     });
 
     $('#show-more-btn')?.addEventListener('click', () => {
@@ -97,6 +121,7 @@ const Lightbox = {
   container: null,
   title: null,
   filmstrip: null,
+  filmstripVideoObserver: null,
 
   init() {
     this.el = $('#lightbox');
@@ -156,6 +181,8 @@ const Lightbox = {
   close(fromPopState = false) {
     if (!state.open) return;
     state.open = false;
+    this.filmstripVideoObserver?.disconnect();
+    this.filmstripVideoObserver = null;
     document.body.style.overflow = '';
     this.el.style.display = 'none';
     $('video', this.container)?.pause();
@@ -182,12 +209,51 @@ const Lightbox = {
   },
 
   renderFilmstrip() {
+    this.filmstripVideoObserver?.disconnect();
+    this.filmstripVideoObserver = null;
     this.filmstrip.innerHTML = getItems().map((item, idx) => `
       <div class="lightbox-thumb ${idx === state.index ? 'active' : ''}" data-index="${idx}" tabindex="0" role="button" aria-label="${item.title}">
-        <img src="${isVideo(item) ? (item.poster || item.src) : item.src}" alt="${item.alt || item.title}">
+        ${renderFilmstripMedia(item)}
       </div>
     `).join('');
+    this.observeFilmstripVideos();
     this.syncThumbs();
+  },
+
+  observeFilmstripVideos() {
+    const videos = $$('video[data-src]', this.filmstrip);
+    if (!videos.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+      videos.forEach(video => this.loadFilmstripVideo(video));
+      return;
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        this.loadFilmstripVideo(entry.target);
+      });
+    }, { root: this.filmstrip, rootMargin: "80px" });
+
+    this.filmstripVideoObserver = observer;
+    videos.forEach(video => observer.observe(video));
+  },
+
+  loadFilmstripVideo(video) {
+    if (video.dataset.loaded) return;
+    video.dataset.loaded = "true";
+    video.addEventListener("loadedmetadata", () => {
+      const requestedTime = Number(video.dataset.time);
+      const lastFrameTime = Number.isFinite(video.duration)
+        ? Math.max(0, video.duration - 0.05)
+        : requestedTime;
+      video.currentTime = Math.min(requestedTime, lastFrameTime);
+    }, { once: true });
+    video.preload = "metadata";
+    video.src = video.dataset.src;
+    video.load();
   },
 
   syncThumbs() {

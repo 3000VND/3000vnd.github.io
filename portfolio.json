@@ -9,35 +9,35 @@
   },
   {
     "id": 2,
-    "title": "Sample VisDev #2",
+    "title": "Sample Artwork #2",
     "category": "visdev",
     "type": "image",
-    "src": "assets/visdev/VisDev2.avif",
-    "alt": "Morning Bath"
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Visdev Artwork 1"
   },
   {
     "id": 3,
-    "title": "Sample VisDev #3",
-    "category": "visdev",
+    "title": "Sample Artwork #3",
+    "category": "animation",
     "type": "image",
-    "src": "assets/visdev/VisDev3.avif",
-    "alt": "Key Visual 2"
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Animation Artwork 1"
   },
   {
     "id": 4,
-    "title": "Sample Character #4",
+    "title": "Sample Artwork #4",
     "category": "character",
     "type": "image",
-    "src": "assets/character/Character1.avif",
-    "alt": "Daweed Dance"
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Character Artwork 2"
   },
   {
     "id": 5,
-    "title": "Sample Animation #5",
-    "category": "animation",
-    "type": "video",
-    "src": "assets/animation/Animation1.mp4#t=0.001",
-    "alt": "Khuuch Run Cycle"
+    "title": "Sample Artwork #5",
+    "category": "sketch",
+    "type": "image",
+    "src": "https://via.placeholder.com/400x300",
+    "alt": "Sketch Artwork 1"
   },
   {
     "id": 6,
