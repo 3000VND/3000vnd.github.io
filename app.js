@@ -86,26 +86,19 @@ const Portfolio = {
       $$(".portfolio-entry", grid).forEach(entry => {
         entry.addEventListener("pointerenter", event => {
           if (event.pointerType === "touch") return;
-          window.clearTimeout(entry._settleTimer);
           window.clearTimeout(entry._returnSpaceTimer);
           entry.classList.remove("is-retaining-space");
           entry.classList.add("is-expanded");
-          entry._dropStartedAt = performance.now();
         });
         entry.addEventListener("pointerleave", event => {
           if (event.pointerType === "touch") return;
-          window.clearTimeout(entry._settleTimer);
-          const elapsed = performance.now() - (entry._dropStartedAt || 0);
-          const settleTime = Math.max(0, 300 - elapsed);
-          entry._settleTimer = window.setTimeout(() => {
-            entry.classList.remove("is-expanded");
-            entry.classList.add("is-retaining-space");
-            entry._returnSpaceTimer = window.setTimeout(() => {
-              entry.classList.remove("is-retaining-space");
-              entry._returnSpaceTimer = null;
-            }, 2000);
-            entry._settleTimer = null;
-          }, settleTime);
+          entry.classList.remove("is-expanded");
+          entry.classList.add("is-retaining-space");
+          window.clearTimeout(entry._returnSpaceTimer);
+          entry._returnSpaceTimer = window.setTimeout(() => {
+            entry.classList.remove("is-retaining-space");
+            entry._returnSpaceTimer = null;
+          }, 2000);
         });
       });
     }
