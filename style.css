@@ -249,9 +249,19 @@ h1 {
   transform: translateY(-3px);
 }
 
-.portfolio-entry:hover .portfolio-item,
+.portfolio-entry:hover .portfolio-item {
+  border-bottom-color: transparent;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
 .portfolio-entry:hover .portfolio-caption {
-  border-color: var(--accent);
+  height: 68px;
+  border: 1px solid var(--accent);
+  border-top: 0;
+}
+
+.portfolio-entry:hover .portfolio-title {
+  opacity: 1;
 }
 
 .portfolio-item img,
@@ -293,32 +303,34 @@ h1 {
   border-left: 12px solid #ffffff;
   transform: translateX(2px);
 }
-/* Hover-Reveal Caption Beneath the Artwork */
-.portfolio-caption {
+/* Title overlays the artwork; the empty white panel expands below it */
+.portfolio-title {
   position: absolute;
-  top: 100%;
   left: 0;
   right: 0;
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-top: 0;
-  border-radius: 0 0 var(--radius) var(--radius);
-  color: var(--text-muted);
-  padding: 1px 12px;
-  font-size: 0.8rem;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 68px;
+  padding: 8px 12px;
+  color: var(--text-main);
+  font-size: 1rem;
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1.3;
   text-align: center;
   opacity: 0;
-  visibility: hidden;
-  transform: translateY(-100%);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, visibility 0.3s;
+  transition: opacity 0.2s ease;
 }
 
-.portfolio-entry:hover .portfolio-caption {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+.portfolio-caption {
+  height: 0;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 0 solid var(--border-color);
+  border-radius: 0 0 var(--radius) var(--radius);
+  transition: height 0.3s ease, border-color 0.2s ease;
 }
 
 /* Show More Button */
@@ -586,16 +598,25 @@ footer {
     display: none;
   }
 
-  /* Keep titles visible beneath each artwork card on mobile */
-  .portfolio-caption {
-    position: static;
-    transform: none;
+  /* Keep the title over the art and the white panel below it on mobile */
+  .portfolio-item {
+    border-bottom: 0;
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
+  .portfolio-title {
     opacity: 1;
-    visibility: visible;
-    background: var(--card-bg);
-    color: var(--text-muted);
-    padding: 10px 12px;
+  }
+
+  .portfolio-caption {
+    height: 68px;
+    border: 1px solid var(--border-color);
+    border-top: 0;
     transition: none;
+  }
+
+  .portfolio-entry:hover {
+    transform: none;
   }
 
   .lightbox-nav-btn {
