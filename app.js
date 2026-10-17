@@ -96,7 +96,7 @@ const Portfolio = {
           entry._returnSpaceTimer = window.setTimeout(() => {
             entry.classList.remove("is-retaining-space");
             entry._returnSpaceTimer = null;
-          }, 3000);
+          }, 2000);
         });
       });
     }

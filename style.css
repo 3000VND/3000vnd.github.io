@@ -92,7 +92,7 @@ body {
 #portfolio {
   width: 100%;
   max-width: 1700px;
-  transform: translateY(-4px);
+  transform: translateY(-2px);
   margin: 0 auto;
   padding: 20px 20px;
   margin-bottom: 60px;
@@ -253,11 +253,11 @@ h1 {
 }
 
 .portfolio-entry.is-retaining-space {
-  margin-bottom: 48px;
+  margin-bottom:  46px;
 }
 
 .portfolio-entry:hover .portfolio-caption {
-  height: 48px;
+  height:  46px;
   transition: height 0.3s ease 0s;
 }
 
@@ -311,7 +311,7 @@ h1 {
   justify-content: center;
   box-sizing: border-box;
   width: 100%;
-  height: 48px;
+  height:  46px;
   padding: 6px 12px;
   color: var(--text-main);
   font-size: 0.9rem;
@@ -605,7 +605,7 @@ footer {
   }
 
   .portfolio-caption {
-    height: 48px;
+    height:  46px;
     transition: none;
   }
 
