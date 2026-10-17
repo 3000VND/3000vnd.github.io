@@ -74,9 +74,10 @@ const Portfolio = {
       <div class="portfolio-entry ${state.category === 'all' && idx >= limit && !state.expanded ? 'hidden-item' : ''}" data-index="${idx}">
         <div class="portfolio-item ${item.category}">
           ${renderMedia(item, false, idx === 0)}
+        </div>
+        <div class="portfolio-caption">
           <div class="portfolio-title">${item.title}</div>
         </div>
-        <div class="portfolio-caption" aria-hidden="true"></div>
       </div>
     `).join('');
 
