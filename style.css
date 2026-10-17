@@ -234,10 +234,21 @@ h1 {
   min-width: 0;
   overflow: visible;
   background: var(--card-bg);
-  border: 1px solid var(--border-color);
+  border: 0;
   border-radius: var(--radius);
   cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease;
+}
+
+.portfolio-entry::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border: 1px solid var(--border-color);
+  border-radius: inherit;
+  pointer-events: none;
+  transition: bottom 0.3s ease, border-color 0.2s ease;
 }
 
 .portfolio-item {
@@ -254,6 +265,9 @@ h1 {
 
 .portfolio-entry:hover {
   transform: translateY(-3px);
+}
+
+.portfolio-entry:hover::after {
   border-color: var(--accent);
 }
 
@@ -268,6 +282,10 @@ h1 {
 
 .portfolio-entry.is-expanded {
   z-index: 3;
+}
+
+.portfolio-entry.is-expanded::after {
+  bottom: -44px;
 }
 
 .portfolio-entry.is-expanded .portfolio-caption {
@@ -338,15 +356,14 @@ h1 {
 .portfolio-caption {
   position: absolute;
   top: calc(100% - 1px);
-  left: -1px;
-  right: -1px;
+  left: 0;
+  right: 0;
   z-index: 2;
   box-sizing: border-box;
   height: 0;
   overflow: hidden;
   background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-top: 0;
+  border: 0;
   border-radius: 0 0 var(--radius) var(--radius);
   transition: height 0.3s ease;
 }
