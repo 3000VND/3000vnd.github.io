@@ -257,6 +257,7 @@ h1 {
   background: var(--card-bg);
   border-radius: var(--radius) var(--radius) 0 0;
   cursor: pointer;
+  transition: border-radius 0.3s ease;
 }
 
 @media (min-width: 769px) {
