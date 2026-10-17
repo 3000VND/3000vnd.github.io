@@ -1,0 +1,49 @@
+# Allow normal Google Search so people can find your art portfolio
+User-agent: Googlebot
+Allow: /
+
+# --- BLOCK AI TRAINING & SCRAPING BOTS ---
+
+# OpenAI (ChatGPT / GPT models)
+User-agent: GPTBot
+Disallow: /
+
+# Anthropic (Claude models)
+User-agent: ClaudeBot
+Disallow: /
+
+# Google Generative AI (Gemini training)
+User-agent: Google-Extended
+Disallow: /
+
+# Apple AI training
+User-agent: Applebot-Extended
+Disallow: /
+
+# Meta AI training
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+# Common Crawl (Feeds many open-source models)
+User-agent: CCBot
+Disallow: /
+
+# ByteDance / TikTok crawler
+User-agent: Bytespider
+Disallow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Disallow: /
+
+# Amazon AI / web crawler
+User-agent: Amazonbot
+Disallow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Disallow: /
+
+# Diffbot (AI data scraper)
+User-agent: diffbot
+Disallow: /
