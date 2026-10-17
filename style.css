@@ -251,28 +251,30 @@ h1 {
 
 .video-badge {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  display: grid;
-  place-items: center;
-  width: 22px;
-  height: 22px;
-  background: rgba(0, 0, 0, 0.65);
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 34px;
+  background: rgba(45, 45, 45, 0.82);
   color: #ffffff;
   font-size: 0;
-  line-height: 1;
-  border-radius: 50%;
+  border-radius: 0 12px 0 10px;
   backdrop-filter: blur(4px);
   pointer-events: none;
   z-index: 2;
 }
 .video-badge::before {
-  content: "▶︎";
-  font-size: 0.65rem;
-  line-height: 1;
-  transform: translateX(1px);
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid #ffffff;
+  transform: translateX(2px);
 }
-
 /* Hover-Reveal Caption Overlay */
 .portfolio-caption {
   position: absolute;
