@@ -67,12 +67,6 @@ const Portfolio = {
     this.videoPreviewObserver?.disconnect();
     this.videoPreviewObserver = null;
     this.previewVisibility.clear();
-    window.clearTimeout(grid._settleTimer);
-    window.clearTimeout(grid._spaceReturnTimer);
-    grid._settleTimer = null;
-    grid._spaceReturnTimer = null;
-    grid._activeEntry = null;
-    grid.style.gridTemplateRows = "";
     const items = getItems();
     const limit = window.innerWidth <= 768 ? 3 : 5;
     const mobileMode = window.matchMedia("(max-width: 768px)").matches;
@@ -89,54 +83,28 @@ const Portfolio = {
     `).join('');
 
     if (!mobileMode) {
-      const entries = $$(".portfolio-entry", grid);
-      const visibleEntries = entries.filter(entry => !entry.classList.contains("hidden-item"));
-      const columnCount = Math.max(1, getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length);
-      const rowCount = Math.ceil(visibleEntries.length / columnCount);
-      const measuredRowSizes = getComputedStyle(grid).gridTemplateRows.trim().split(/\s+/).map(parseFloat);
-      const fallbackRowSize = entries[0]?.getBoundingClientRect().height || 244;
-      const baseRowSizes = Array.from({ length: rowCount }, (_, index) =>
-        Number.isFinite(measuredRowSizes[index]) ? measuredRowSizes[index] : fallbackRowSize
-      );
-      const setExpandedRow = activeEntry => {
-        const activeIndex = activeEntry ? visibleEntries.indexOf(activeEntry) : -1;
-        const activeRow = activeIndex >= 0 ? Math.floor(activeIndex / columnCount) : -1;
-        grid.style.gridTemplateRows = baseRowSizes
-          .map((size, index) => String(size + (index === activeRow ? 46 : 0)) + "px")
-          .join(" ");
-      };
-
-      grid.style.gridTemplateRows = baseRowSizes.map(size => String(size) + "px").join(" ");
-
-      entries.forEach(entry => {
+      $$(".portfolio-entry", grid).forEach(entry => {
         entry.addEventListener("pointerenter", event => {
           if (event.pointerType === "touch") return;
-          window.clearTimeout(grid._settleTimer);
-          window.clearTimeout(grid._spaceReturnTimer);
-          grid._settleTimer = null;
-          grid._spaceReturnTimer = null;
-          grid._activeEntry = entry;
+          window.clearTimeout(entry._settleTimer);
+          window.clearTimeout(entry._returnSpaceTimer);
+          entry.classList.remove("is-retaining-space");
+          entry.classList.add("is-expanded");
           entry._dropStartedAt = performance.now();
-
-          entries.forEach(candidate => {
-            candidate.classList.toggle("is-expanded", candidate === entry);
-          });
-          setExpandedRow(entry);
         });
-
         entry.addEventListener("pointerleave", event => {
-          if (event.pointerType === "touch" || grid._activeEntry !== entry) return;
-          grid._activeEntry = null;
-          window.clearTimeout(grid._settleTimer);
+          if (event.pointerType === "touch") return;
+          window.clearTimeout(entry._settleTimer);
           const elapsed = performance.now() - (entry._dropStartedAt || 0);
           const settleTime = Math.max(0, 300 - elapsed);
-          grid._settleTimer = window.setTimeout(() => {
+          entry._settleTimer = window.setTimeout(() => {
             entry.classList.remove("is-expanded");
-            grid._settleTimer = null;
-            grid._spaceReturnTimer = window.setTimeout(() => {
-              setExpandedRow(null);
-              grid._spaceReturnTimer = null;
+            entry.classList.add("is-retaining-space");
+            entry._returnSpaceTimer = window.setTimeout(() => {
+              entry.classList.remove("is-retaining-space");
+              entry._returnSpaceTimer = null;
             }, 2000);
+            entry._settleTimer = null;
           }, settleTime);
         });
       });
