@@ -85,7 +85,7 @@ const Portfolio = {
           this.previewVisibility.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0);
         });
         this.syncMobilePreviews(videos);
-      }, { threshold: [0, 0.7] });
+      }, { threshold: [0, 0.8] });
 
       this.videoPreviewObserver = observer;
       videos.forEach(video => observer.observe(video));
