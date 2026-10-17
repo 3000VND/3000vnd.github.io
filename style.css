@@ -259,6 +259,12 @@ h1 {
   cursor: pointer;
 }
 
+@media (min-width: 769px) {
+  .portfolio-entry:not(.is-expanded) .portfolio-item {
+    border-radius: var(--radius);
+  }
+}
+
 .portfolio-entry.hidden-item {
   display: none;
 }
