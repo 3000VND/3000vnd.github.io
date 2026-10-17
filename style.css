@@ -226,38 +226,37 @@ h1 {
 }
 
 .portfolio-grid.is-pushing {
-  padding-bottom: 45px;
+  padding-bottom: 46px;
 }
 
 .portfolio-entry {
   position: relative;
   min-width: 0;
+  height: 242px;
   overflow: visible;
-  padding: 1px;
-  background: var(--card-bg);
-  border: 0;
-  border-radius: var(--radius);
-  clip-path: inset(0 0 0 0 round var(--radius));
   cursor: pointer;
-  transition: transform 0.2s ease, clip-path 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
-.portfolio-entry::after {
-  content: "";
+.portfolio-mask {
   position: absolute;
-  inset: 0;
-  z-index: 4;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 242px;
+  overflow: hidden;
+  background: var(--card-bg);
   border: 1px solid var(--border-color);
-  border-radius: inherit;
-  pointer-events: none;
-  transition: bottom 0.3s ease, border-color 0.2s ease;
+  border-radius: var(--radius);
+  transform: translateY(0);
+  transition: height 0.3s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .portfolio-item {
   position: relative;
   overflow: hidden;
   background: var(--card-bg);
-  border-radius: 0;
   cursor: pointer;
 }
 
@@ -265,30 +264,22 @@ h1 {
   display: none;
 }
 
-.portfolio-entry:hover {
+.portfolio-entry:hover .portfolio-mask {
   transform: translateY(-3px);
-}
-
-.portfolio-entry:hover::after {
   border-color: var(--accent);
 }
 
 .portfolio-entry.is-pushed {
-  transform: translateY(45px);
+  transform: translateY(46px);
   transition: transform 0.3s ease;
-}
-
-.portfolio-entry.is-pushed:hover {
-  transform: translateY(42px);
 }
 
 .portfolio-entry.is-expanded {
   z-index: 3;
-  clip-path: inset(0 0 -45px 0 round var(--radius));
 }
 
-.portfolio-entry.is-expanded::after {
-  bottom: -45px;
+.portfolio-entry.is-expanded .portfolio-mask {
+  height: 288px;
 }
 
 .portfolio-entry.is-expanded .portfolio-caption {
@@ -357,12 +348,6 @@ h1 {
 }
 
 .portfolio-caption {
-  position: absolute;
-  top: calc(100% - 1px);
-  left: 0;
-  right: 0;
-  z-index: 2;
-  box-sizing: border-box;
   height: 0;
   overflow: hidden;
   background: var(--card-bg);
@@ -637,7 +622,14 @@ footer {
   }
 
   .portfolio-entry {
-    overflow: hidden;
+    height: auto;
+    overflow: visible;
+  }
+
+  .portfolio-mask {
+    position: relative;
+    height: auto;
+    transform: none;
   }
   
   .mobile-hidden {
@@ -651,7 +643,6 @@ footer {
   }
 
   .portfolio-caption {
-    position: static;
     height: 46px;
     transition: none;
   }
