@@ -72,7 +72,6 @@ const Portfolio = {
     grid._settleTimer = null;
     grid._spaceReturnTimer = null;
     grid._activeEntry = null;
-    grid.classList.remove("is-pushing");
     const items = getItems();
     const limit = window.innerWidth <= 768 ? 3 : 5;
     const mobileMode = window.matchMedia("(max-width: 768px)").matches;
@@ -99,17 +98,11 @@ const Portfolio = {
           grid._spaceReturnTimer = null;
           grid._activeEntry = entry;
           entry._dropStartedAt = performance.now();
-          const activeRowTop = entry.offsetTop;
-          let hasPushedRows = false;
 
           entries.forEach(candidate => {
-            const isActive = candidate === entry;
-            const isBelow = !candidate.classList.contains("hidden-item") && candidate.offsetTop > activeRowTop;
-            candidate.classList.toggle("is-expanded", isActive);
-            candidate.classList.toggle("is-pushed", !isActive && isBelow);
-            hasPushedRows = hasPushedRows || (!isActive && isBelow);
+            candidate.classList.toggle("is-expanded", candidate === entry);
+            candidate.classList.remove("is-retaining-space");
           });
-          grid.classList.toggle("is-pushing", hasPushedRows);
         });
 
         entry.addEventListener("pointerleave", event => {
@@ -120,10 +113,10 @@ const Portfolio = {
           const settleTime = Math.max(0, 300 - elapsed);
           grid._settleTimer = window.setTimeout(() => {
             entry.classList.remove("is-expanded");
+            entry.classList.add("is-retaining-space");
             grid._settleTimer = null;
             grid._spaceReturnTimer = window.setTimeout(() => {
-              entries.forEach(candidate => candidate.classList.remove("is-pushed"));
-              grid.classList.remove("is-pushing");
+              entry.classList.remove("is-retaining-space");
               grid._spaceReturnTimer = null;
             }, 2000);
           }, settleTime);
