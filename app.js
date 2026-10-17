@@ -72,6 +72,7 @@ const Portfolio = {
     grid._settleTimer = null;
     grid._spaceReturnTimer = null;
     grid._activeEntry = null;
+    grid.style.gridTemplateRows = "";
     const items = getItems();
     const limit = window.innerWidth <= 768 ? 3 : 5;
     const mobileMode = window.matchMedia("(max-width: 768px)").matches;
@@ -89,6 +90,24 @@ const Portfolio = {
 
     if (!mobileMode) {
       const entries = $$(".portfolio-entry", grid);
+      const visibleEntries = entries.filter(entry => !entry.classList.contains("hidden-item"));
+      const columnCount = Math.max(1, getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length);
+      const rowCount = Math.ceil(visibleEntries.length / columnCount);
+      const measuredRowSizes = getComputedStyle(grid).gridTemplateRows.trim().split(/\s+/).map(parseFloat);
+      const fallbackRowSize = entries[0]?.getBoundingClientRect().height || 244;
+      const baseRowSizes = Array.from({ length: rowCount }, (_, index) =>
+        Number.isFinite(measuredRowSizes[index]) ? measuredRowSizes[index] : fallbackRowSize
+      );
+      const setExpandedRow = activeEntry => {
+        const activeIndex = activeEntry ? visibleEntries.indexOf(activeEntry) : -1;
+        const activeRow = activeIndex >= 0 ? Math.floor(activeIndex / columnCount) : -1;
+        grid.style.gridTemplateRows = baseRowSizes
+          .map((size, index) => String(size + (index === activeRow ? 46 : 0)) + "px")
+          .join(" ");
+      };
+
+      grid.style.gridTemplateRows = baseRowSizes.map(size => String(size) + "px").join(" ");
+
       entries.forEach(entry => {
         entry.addEventListener("pointerenter", event => {
           if (event.pointerType === "touch") return;
@@ -101,8 +120,8 @@ const Portfolio = {
 
           entries.forEach(candidate => {
             candidate.classList.toggle("is-expanded", candidate === entry);
-            candidate.classList.remove("is-retaining-space");
           });
+          setExpandedRow(entry);
         });
 
         entry.addEventListener("pointerleave", event => {
@@ -113,10 +132,9 @@ const Portfolio = {
           const settleTime = Math.max(0, 300 - elapsed);
           grid._settleTimer = window.setTimeout(() => {
             entry.classList.remove("is-expanded");
-            entry.classList.add("is-retaining-space");
             grid._settleTimer = null;
             grid._spaceReturnTimer = window.setTimeout(() => {
-              entry.classList.remove("is-retaining-space");
+              setExpandedRow(null);
               grid._spaceReturnTimer = null;
             }, 2000);
           }, settleTime);
