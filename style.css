@@ -234,29 +234,20 @@ h1 {
   min-width: 0;
   height: 242px;
   overflow: visible;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.portfolio-mask {
-  position: absolute;
-  top: 0;
-  left: 0;
-  box-sizing: border-box;
-  width: 100%;
-  height: 242px;
-  overflow: hidden;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
+  cursor: pointer;
   transform: translateY(0);
-  transition: height 0.3s ease, border-color 0.2s ease, transform 0.2s ease;
+  translate: 0 0;
+  transition: transform 0.3s ease, translate 0.2s ease, border-color 0.2s ease;
 }
 
 .portfolio-item {
   position: relative;
   overflow: hidden;
   background: var(--card-bg);
+  border-radius: var(--radius) var(--radius) 0 0;
   cursor: pointer;
 }
 
@@ -264,22 +255,17 @@ h1 {
   display: none;
 }
 
-.portfolio-entry:hover .portfolio-mask {
-  transform: translateY(-3px);
+.portfolio-entry:hover {
+  translate: 0 -3px;
   border-color: var(--accent);
 }
 
 .portfolio-entry.is-pushed {
   transform: translateY(46px);
-  transition: transform 0.3s ease;
 }
 
 .portfolio-entry.is-expanded {
   z-index: 3;
-}
-
-.portfolio-entry.is-expanded .portfolio-mask {
-  height: 288px;
 }
 
 .portfolio-entry.is-expanded .portfolio-caption {
@@ -290,6 +276,7 @@ h1 {
   opacity: 1;
   transition: opacity 0.2s ease 0s;
 }
+
 .portfolio-item img,
 .portfolio-item video {
   width: 100%;
@@ -320,6 +307,7 @@ h1 {
 .portfolio-item.is-playing .video-badge {
   opacity: 0;
 }
+
 .video-badge::before {
   content: "";
   width: 0;
@@ -329,14 +317,36 @@ h1 {
   border-left: 12px solid #ffffff;
   transform: translateX(2px);
 }
-/* The title panel opens below the artwork inside the outlined card. */
+
+/* The title panel extends from the card without changing its grid slot. */
+.portfolio-caption {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  background: var(--card-bg);
+  border-radius: 0 0 var(--radius) var(--radius);
+  box-shadow: none;
+  transition: height 0.3s ease 0s, box-shadow 0.3s ease;
+}
+
+.portfolio-entry.is-expanded .portfolio-caption {
+  box-shadow: inset 1px 0 var(--border-color), inset -1px 0 var(--border-color), inset 0 -1px var(--border-color);
+}
+
+.portfolio-entry.is-expanded:hover .portfolio-caption {
+  box-shadow: inset 1px 0 var(--accent), inset -1px 0 var(--accent), inset 0 -1px var(--accent);
+}
+
 .portfolio-title {
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   width: 100%;
-  height:  46px;
+  height: 46px;
   padding: 6px 12px;
   color: var(--text-main);
   font-size: 0.9rem;
@@ -345,14 +355,6 @@ h1 {
   text-align: center;
   opacity: 0;
   transition: opacity 0.2s ease 0s;
-}
-
-.portfolio-caption {
-  height: 0;
-  overflow: hidden;
-  background: var(--card-bg);
-  border-radius: 0 0 var(--radius) var(--radius);
-  transition: height 0.3s ease;
 }
 /* Show More Button */
 .show-more-container {
@@ -623,34 +625,39 @@ footer {
 
   .portfolio-entry {
     height: auto;
-    overflow: visible;
-  }
-
-  .portfolio-mask {
-    position: relative;
-    height: auto;
+    overflow: hidden;
     transform: none;
-  }
-  
-  .mobile-hidden {
-    display: none;
-  }
-
-
-  .portfolio-title {
-    opacity: 1;
-    transition: none;
-  }
-
-  .portfolio-caption {
-    height: 46px;
+    translate: none;
     transition: none;
   }
 
   .portfolio-entry:hover {
     transform: none;
+    translate: none;
   }
 
+  .mobile-hidden {
+    display: none;
+  }
+
+  .portfolio-item {
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
+  .portfolio-caption {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    height: 46px;
+    box-shadow: none;
+    transition: none;
+  }
+
+  .portfolio-title {
+    opacity: 1;
+    transition: none;
+  }
   .lightbox-nav-btn {
     width: 36px;
     height: 36px;

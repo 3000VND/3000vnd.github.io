@@ -95,14 +95,18 @@ const Portfolio = {
           grid._spaceReturnTimer = null;
           grid._activeEntry = entry;
           const activeRowTop = entry.offsetTop;
+          let hasPushedRows = false;
+
           entries.forEach(candidate => {
             const isActive = candidate === entry;
             const isBelow = !candidate.classList.contains("hidden-item") && candidate.offsetTop > activeRowTop;
             candidate.classList.toggle("is-expanded", isActive);
             candidate.classList.toggle("is-pushed", !isActive && isBelow);
+            hasPushedRows = hasPushedRows || (!isActive && isBelow);
           });
-          grid.classList.add("is-pushing");
+          grid.classList.toggle("is-pushing", hasPushedRows);
         });
+
         entry.addEventListener("pointerleave", event => {
           if (event.pointerType === "touch" || grid._activeEntry !== entry) return;
           grid._activeEntry = null;
