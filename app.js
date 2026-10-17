@@ -67,6 +67,10 @@ const Portfolio = {
     this.videoPreviewObserver?.disconnect();
     this.videoPreviewObserver = null;
     this.previewVisibility.clear();
+    window.clearTimeout(grid._spaceReturnTimer);
+    grid._spaceReturnTimer = null;
+    grid._activeEntry = null;
+    grid.classList.remove("is-pushing");
     const items = getItems();
     const limit = window.innerWidth <= 768 ? 3 : 5;
     const mobileMode = window.matchMedia("(max-width: 768px)").matches;
@@ -83,21 +87,31 @@ const Portfolio = {
     `).join('');
 
     if (!mobileMode) {
-      $$(".portfolio-entry", grid).forEach(entry => {
+      const entries = $$(".portfolio-entry", grid);
+      entries.forEach(entry => {
         entry.addEventListener("pointerenter", event => {
           if (event.pointerType === "touch") return;
-          window.clearTimeout(entry._returnSpaceTimer);
-          entry.classList.remove("is-retaining-space");
-          entry.classList.add("is-expanded");
+          window.clearTimeout(grid._spaceReturnTimer);
+          grid._spaceReturnTimer = null;
+          grid._activeEntry = entry;
+          const activeRowTop = entry.offsetTop;
+          entries.forEach(candidate => {
+            const isActive = candidate === entry;
+            const isBelow = !candidate.classList.contains("hidden-item") && candidate.offsetTop > activeRowTop;
+            candidate.classList.toggle("is-expanded", isActive);
+            candidate.classList.toggle("is-pushed", !isActive && isBelow);
+          });
+          grid.classList.toggle("is-pushing", entries.some(candidate => candidate.classList.contains("is-pushed")));
         });
         entry.addEventListener("pointerleave", event => {
-          if (event.pointerType === "touch") return;
+          if (event.pointerType === "touch" || grid._activeEntry !== entry) return;
+          grid._activeEntry = null;
           entry.classList.remove("is-expanded");
-          entry.classList.add("is-retaining-space");
-          window.clearTimeout(entry._returnSpaceTimer);
-          entry._returnSpaceTimer = window.setTimeout(() => {
-            entry.classList.remove("is-retaining-space");
-            entry._returnSpaceTimer = null;
+          window.clearTimeout(grid._spaceReturnTimer);
+          grid._spaceReturnTimer = window.setTimeout(() => {
+            entries.forEach(candidate => candidate.classList.remove("is-pushed"));
+            grid.classList.remove("is-pushing");
+            grid._spaceReturnTimer = null;
           }, 2000);
         });
       });
