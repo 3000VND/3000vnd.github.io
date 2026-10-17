@@ -80,6 +80,13 @@ const Portfolio = {
     `).join('');
 
     const videos = $$(".portfolio-item video", grid);
+    videos.forEach(video => {
+      const card = video.closest(".portfolio-item");
+      const syncBadge = () => card.classList.toggle("is-playing", !video.paused && !video.ended);
+      video.addEventListener("playing", syncBadge);
+      video.addEventListener("pause", syncBadge);
+      video.addEventListener("ended", syncBadge);
+    });
     const mobileMode = window.matchMedia("(max-width: 768px)").matches;
     if (mobileMode && videos.length && "IntersectionObserver" in window) {
       const observer = new IntersectionObserver(entries => {
