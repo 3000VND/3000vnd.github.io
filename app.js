@@ -85,7 +85,7 @@ const Portfolio = {
           this.previewVisibility.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0);
         });
         this.syncMobilePreviews(videos);
-      }, { threshold: [0, 0.95] });
+      }, { threshold: [0, 0.9] });
 
       this.videoPreviewObserver = observer;
       videos.forEach(video => observer.observe(video));
@@ -111,7 +111,7 @@ const Portfolio = {
 
   syncMobilePreviews(videos) {
     const activeVideo = [...this.previewVisibility.entries()]
-      .filter(([video, ratio]) => videos.includes(video) && ratio >= 0.95)
+      .filter(([video, ratio]) => videos.includes(video) && ratio >= 0.9)
       .sort((a, b) => b[1] - a[1])[0]?.[0];
 
     videos.forEach(video => {

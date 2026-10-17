@@ -224,7 +224,8 @@ h1 {
 
 .portfolio-item {
   position: relative; /* Essential for absolute overlay positioning */
-  overflow: hidden;   /* Clips the caption when hidden below */
+  overflow: visible;  /* Let the badge cover the 1px border */
+  clip-path: inset(0 round var(--radius)); /* Keep card contents clipped to the outer corners */
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
@@ -251,8 +252,8 @@ h1 {
 
 .video-badge {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -1px;
+  right: -1px;
   display: flex;
   align-items: center;
   justify-content: center;
