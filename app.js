@@ -67,12 +67,6 @@ const Portfolio = {
     this.videoPreviewObserver?.disconnect();
     this.videoPreviewObserver = null;
     this.previewVisibility.clear();
-    window.clearTimeout(grid._panelCloseTimer);
-    window.clearTimeout(grid._spaceReturnTimer);
-    grid._panelCloseTimer = null;
-    grid._spaceReturnTimer = null;
-    grid._activeEntry = null;
-    grid.classList.remove("is-pushing");
     const items = getItems();
     const limit = window.innerWidth <= 768 ? 3 : 5;
     const mobileMode = window.matchMedia("(max-width: 768px)").matches;
@@ -89,44 +83,29 @@ const Portfolio = {
     `).join('');
 
     if (!mobileMode) {
-      const entries = $$(".portfolio-entry", grid);
-      const panelMotionDuration = 300;
-      entries.forEach(entry => {
+      $$(".portfolio-entry", grid).forEach(entry => {
         entry.addEventListener("pointerenter", event => {
           if (event.pointerType === "touch") return;
-          window.clearTimeout(grid._panelCloseTimer);
-          window.clearTimeout(grid._spaceReturnTimer);
-          grid._panelCloseTimer = null;
-          grid._spaceReturnTimer = null;
-          if (!entry.classList.contains("is-expanded")) {
-            entry._expandedAt = performance.now();
-          }
-          grid._activeEntry = entry;
-          const activeRowTop = entry.offsetTop;
-          entries.forEach(candidate => {
-            const isActive = candidate === entry;
-            const isBelow = !candidate.classList.contains("hidden-item") && candidate.offsetTop > activeRowTop;
-            candidate.classList.toggle("is-expanded", isActive);
-            candidate.classList.toggle("is-pushed", !isActive && isBelow);
-          });
-          grid.classList.add("is-pushing");
+          window.clearTimeout(entry._settleTimer);
+          window.clearTimeout(entry._returnSpaceTimer);
+          entry.classList.remove("is-retaining-space");
+          entry.classList.add("is-expanded");
+          entry._dropStartedAt = performance.now();
         });
         entry.addEventListener("pointerleave", event => {
-          if (event.pointerType === "touch" || grid._activeEntry !== entry) return;
-          grid._activeEntry = null;
-          window.clearTimeout(grid._panelCloseTimer);
-          window.clearTimeout(grid._spaceReturnTimer);
-          const elapsed = performance.now() - (entry._expandedAt || performance.now());
-          const remainingOpenTime = Math.max(0, panelMotionDuration - elapsed);
-          grid._panelCloseTimer = window.setTimeout(() => {
+          if (event.pointerType === "touch") return;
+          window.clearTimeout(entry._settleTimer);
+          const elapsed = performance.now() - (entry._dropStartedAt || 0);
+          const settleTime = Math.max(0, 300 - elapsed);
+          entry._settleTimer = window.setTimeout(() => {
             entry.classList.remove("is-expanded");
-            grid._panelCloseTimer = null;
-            grid._spaceReturnTimer = window.setTimeout(() => {
-              entries.forEach(candidate => candidate.classList.remove("is-pushed"));
-              grid.classList.remove("is-pushing");
-              grid._spaceReturnTimer = null;
+            entry.classList.add("is-retaining-space");
+            entry._returnSpaceTimer = window.setTimeout(() => {
+              entry.classList.remove("is-retaining-space");
+              entry._returnSpaceTimer = null;
             }, 2000);
-          }, remainingOpenTime);
+            entry._settleTimer = null;
+          }, settleTime);
         });
       });
     }
