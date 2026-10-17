@@ -47,6 +47,8 @@ const renderFilmstripMedia = item => {
 
 // --- 2. Portfolio Module ---
 const Portfolio = {
+  videoPreviewObserver: null,
+  previewVisibility: new Map(),
   async init() {
     this.bindEvents();
     try {
@@ -62,6 +64,9 @@ const Portfolio = {
   render() {
     const grid = $('#portfolio-grid');
     if (!grid) return;
+    this.videoPreviewObserver?.disconnect();
+    this.videoPreviewObserver = null;
+    this.previewVisibility.clear();
     const items = getItems();
     const limit = window.innerWidth <= 768 ? 3 : 5;
 
@@ -72,21 +77,57 @@ const Portfolio = {
       </div>
     `).join('');
 
-    // Keep preview playback active while the pointer moves over the caption.
-    $$(".portfolio-item video", grid).forEach(video => {
-      const card = video.closest(".portfolio-item");
-      card.addEventListener("pointerenter", event => {
-        if (event.pointerType !== "touch") video.play().catch(() => {});
+    const videos = $$(".portfolio-item video", grid);
+    const mobileMode = window.matchMedia("(max-width: 768px)").matches;
+    if (mobileMode && videos.length && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          this.previewVisibility.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0);
+        });
+        this.syncMobilePreviews(videos);
+      }, { threshold: [0, 0.25] });
+
+      this.videoPreviewObserver = observer;
+      videos.forEach(video => observer.observe(video));
+    } else if (!mobileMode) {
+      // Keep desktop playback active while the pointer moves over the caption.
+      videos.forEach(video => {
+        const card = video.closest(".portfolio-item");
+        card.addEventListener("pointerenter", event => {
+          if (event.pointerType !== "touch") video.play().catch(() => {});
+        });
+        card.addEventListener("pointerleave", event => {
+          if (event.pointerType !== "touch") video.pause();
+        });
       });
-      card.addEventListener("pointerleave", event => {
-        if (event.pointerType !== "touch") video.pause();
-      });
-    });
+    }
+
     const btn = $('#show-more-btn');
     if (btn) {
       btn.style.display = state.category === 'all' && items.length > limit ? 'inline-block' : 'none';
       btn.textContent = state.expanded ? 'Show Less ↑' : 'Show More Works ↓';
     }
+  },
+
+  syncMobilePreviews(videos) {
+    const activeVideo = [...this.previewVisibility.entries()]
+      .filter(([video, ratio]) => videos.includes(video) && ratio >= 0.25)
+      .sort((a, b) => b[1] - a[1])[0]?.[0];
+
+    videos.forEach(video => {
+      if (video === activeVideo) {
+        video.muted = true;
+        video.defaultMuted = true;
+        video.playsInline = true;
+        video.setAttribute("muted", "");
+        video.setAttribute("playsinline", "");
+        video.autoplay = true;
+        video.play().catch(() => {});
+      } else {
+        video.autoplay = false;
+        video.pause();
+      }
+    });
   },
 
   bindEvents() {
@@ -185,6 +226,10 @@ const Lightbox = {
     this.filmstripVideoObserver = null;
     document.body.style.overflow = '';
     this.el.style.display = 'none';
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      const grid = $("#portfolio-grid");
+      if (grid) Portfolio.syncMobilePreviews($$(".portfolio-item video", grid));
+    }
     $('video', this.container)?.pause();
     state.prevFocus?.focus();
     if (!fromPopState) history.back();
